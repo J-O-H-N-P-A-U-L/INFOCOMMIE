@@ -5,11 +5,12 @@
   --death: #e05a4a;
   --win: #7ad17a;
   --red: #e23b2e;
-  /* ANSI / BBS palette */
   --cyan: #36c5c5;
   --yellow: #e8c84a;
   --green: #74d77a;
   --magenta: #d76ad7;
+  --purple: #8a7bd8;
+  --pixel: "Press Start 2P", "VT323", monospace;
   --font: "VT323", "Courier New", monospace;
 }
 
@@ -32,13 +33,19 @@ body {
   min-height: 100%;
 }
 
-.crt {
-  position: relative;
-  min-height: 100vh;
-  padding: 3vh 5vw 8vh; /* bottom room for the fixed status bar */
-  font-size: clamp(22px, 3.4vw, 40px);
-  line-height: 1.15;
-  cursor: text;
+img,
+svg {
+  display: block;
+}
+.pix {
+  image-rendering: pixelated;
+}
+
+/* faint scanlines, used by both menu and terminal */
+.menu,
+.crt,
+.page,
+.logoff {
   background-image: repeating-linear-gradient(
     to bottom,
     rgba(255, 255, 255, 0.02) 0px,
@@ -48,56 +55,256 @@ body {
   );
 }
 
-/* ── BBS welcome banner ───────────────────────────────────────────── */
-.bbs-banner {
-  margin-bottom: 1.1em;
-  line-height: 1.05;
-  white-space: pre;
-  overflow-x: hidden;
+/* ════════════════ MAIN MENU (teletext BBS) ════════════════ */
+.menu {
+  min-height: 100vh;
+  padding: 3.5vh 4vw;
+  display: flex;
+  flex-direction: column;
+  gap: 2.2vh;
 }
-.bbs-line {
-  white-space: pre;
+
+.logo {
+  font-family: var(--pixel);
+  font-size: clamp(20px, 5.2vw, 54px);
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-align: center;
 }
-.bbs-banner .blk {
+.logo-a {
+  background: #e8e8e8;
+  color: #000;
+  padding: 0.12em 0.16em;
+}
+.logo-b {
+  color: #fff;
+  padding: 0.12em 0.06em;
+}
+.logo-dot {
+  color: var(--cyan);
+  font-size: 0.42em;
+  vertical-align: top;
+  margin-left: 0.2em;
+}
+
+.menu-body {
+  display: flex;
+  gap: 2vw;
+  align-items: stretch;
+  flex: 1;
+}
+.bbs-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.1em;
+  font-family: var(--pixel);
+  font-size: clamp(28px, 7vw, 78px);
+  color: var(--purple);
+  line-height: 0.92;
+  text-shadow: 3px 3px 0 rgba(138, 123, 216, 0.25);
+}
+
+.menu-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4vh;
+  justify-content: center;
+}
+
+.grid-top {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.4vw;
+}
+.grid-bottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.4vw;
+}
+
+/* shared box look — double teletext border */
+.mbox,
+.wbox {
+  position: relative;
+  border: 4px double var(--cyan);
+  background: #001515;
+  padding: 1.5em 0.8em 1.3em;
+}
+
+.cap {
+  position: absolute;
+  top: -0.72em;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #000;
+  padding: 0 0.5em;
+  font-family: var(--pixel);
+  font-size: clamp(9px, 1.2vw, 14px);
+  color: var(--cyan);
+  white-space: nowrap;
+}
+
+/* top icon tiles */
+.mbox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7em;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+}
+.mbox:hover,
+.mbox:focus-visible {
+  background: #002424;
+  outline: none;
+}
+.mbox .ico svg {
+  width: clamp(34px, 5vw, 60px);
+  height: clamp(34px, 5vw, 60px);
+}
+.mbox .lbl {
+  font-family: var(--pixel);
+  font-size: clamp(8px, 1.15vw, 13px);
+  color: #fff;
+  text-align: center;
+  line-height: 1.5;
+}
+.mbox .num {
+  position: absolute;
+  bottom: -0.7em;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--cyan);
+  color: #000;
+  font-family: var(--pixel);
+  font-size: clamp(9px, 1.2vw, 14px);
+  padding: 0.15em 0.5em;
+}
+
+/* wide boxes */
+.wbox .wrow {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+.wbox .wico svg {
+  width: clamp(40px, 6vw, 72px);
+  height: clamp(40px, 6vw, 72px);
+}
+.wbox ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35em;
+}
+.wbox li button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-family: var(--pixel);
+  font-size: clamp(9px, 1.3vw, 16px);
+  cursor: pointer;
+  text-align: left;
+  padding: 0.15em 0;
+}
+.wbox li button:hover {
+  color: var(--cyan);
+}
+.wbox li .num {
+  display: inline-block;
+  min-width: 1.4em;
+  color: var(--yellow);
+}
+
+.credit {
+  font-family: var(--pixel);
+  font-size: clamp(8px, 1.1vw, 13px);
+  color: var(--dim);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2em;
+  flex-wrap: wrap;
+}
+.credit .exit {
+  background: #001515;
+  border: 2px solid var(--cyan);
+  color: var(--cyan);
+  font-family: var(--pixel);
+  font-size: inherit;
+  padding: 0.3em 0.6em;
+  cursor: pointer;
+}
+.credit .exit:hover {
+  background: var(--cyan);
+  color: #000;
+}
+
+/* ════════════════ CONTENT PAGES ════════════════ */
+.page,
+.logoff {
+  min-height: 100vh;
+  padding: 6vh 6vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: pointer;
+}
+.page-body {
+  font-family: var(--font);
+  font-size: clamp(20px, 2.9vw, 34px);
+  line-height: 1.2;
+  color: var(--fg);
+  white-space: pre-wrap;
+  max-width: 70ch;
+  text-shadow: 0 0 1px rgba(216, 216, 216, 0.5);
+}
+.page-foot {
+  margin-top: 2em;
+  font-family: var(--pixel);
+  font-size: clamp(8px, 1.1vw, 13px);
+  color: var(--cyan);
+}
+.logoff-art {
+  font-family: var(--font);
+  font-size: clamp(34px, 7vw, 80px);
   color: var(--red);
+  line-height: 1.1;
   text-shadow: 0 0 8px rgba(226, 59, 46, 0.5);
 }
-.bbs-banner .wordmark {
-  color: var(--yellow);
-  letter-spacing: 0.14em;
-  text-shadow: 0 0 8px rgba(232, 200, 74, 0.4);
+
+/* ════════════════ TERMINAL (the game) ════════════════ */
+.crt {
+  position: relative;
+  min-height: 100vh;
+  padding: 2.5vh 5vw 8vh;
+  font-size: clamp(22px, 3.4vw, 40px);
+  line-height: 1.15;
+  cursor: text;
 }
-.bbs-rule {
+.term-head {
+  font-family: var(--pixel);
+  font-size: clamp(9px, 1.3vw, 15px);
   color: var(--cyan);
-  white-space: pre;
-  text-shadow: 0 0 6px rgba(54, 197, 197, 0.4);
-}
-.bbs-banner .cyr {
-  color: var(--magenta);
-}
-.bbs-banner .dim {
-  color: var(--dim);
-}
-.bbs-banner .hint {
-  color: var(--cyan);
-  font-size: 0.74em;
+  margin-bottom: 1.1em;
   letter-spacing: 0.02em;
 }
 
-/* ── The game screen ──────────────────────────────────────────────── */
 .screen {
   max-width: 72ch;
   white-space: pre-wrap;
   word-break: break-word;
   text-shadow: 0 0 1px rgba(216, 216, 216, 0.5);
 }
-
 .line {
   margin: 0 0 0.15em 0;
 }
-
 .line.echo {
-  color: var(--green); /* user input, BBS phosphor green */
+  color: var(--green);
 }
 .line.sys {
   color: var(--fg);
@@ -121,18 +328,15 @@ body {
 .prompt-row.won .caret {
   color: var(--win);
 }
-
 .caret {
   margin-right: 0.4ch;
   color: var(--cyan);
 }
-
 .input-text {
   white-space: pre-wrap;
   color: var(--green);
 }
 
-/* Blinking block cursor */
 .cursor {
   display: inline-block;
   width: 0.55ch;
@@ -141,7 +345,6 @@ body {
   transform: translateY(0.12em);
   animation: blink 1.05s steps(1) infinite;
 }
-
 @keyframes blink {
   0%,
   50% {
@@ -153,7 +356,6 @@ body {
   }
 }
 
-/* Hidden real input that captures keystrokes / mobile keyboard */
 .hidden-input {
   position: absolute;
   left: -9999px;
@@ -162,7 +364,7 @@ body {
   opacity: 0;
 }
 
-/* ── DOS-style bottom status line ─────────────────────────────────── */
+/* ════════════════ STATUS BAR ════════════════ */
 .bbs-status {
   position: fixed;
   left: 0;
@@ -174,19 +376,30 @@ body {
   gap: 1px;
   background: #001a1a;
   border-top: 1px solid var(--cyan);
-  font-size: clamp(13px, 1.5vw, 19px);
-  letter-spacing: 0.03em;
+  font-family: var(--pixel);
+  font-size: clamp(9px, 1.1vw, 13px);
+  letter-spacing: 0.02em;
 }
 .bbs-status .seg {
-  padding: 0.25em 0.9em;
+  padding: 0.6em 0.9em;
   color: var(--cyan);
   background: #001010;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
 }
 .bbs-status .seg.inv {
   background: var(--cyan);
   color: #000;
-  font-weight: bold;
+}
+.bbs-status .menu-btn {
+  border: none;
+  cursor: pointer;
+  font-family: var(--pixel);
+  font-size: inherit;
+}
+.bbs-status .menu-btn:hover {
+  background: #fff;
 }
 .bbs-status .seg.sysop {
   margin-left: auto;
@@ -195,8 +408,8 @@ body {
 .bbs-status .mute {
   border: none;
   cursor: pointer;
-  font-family: var(--font);
-  letter-spacing: inherit;
+  font-family: var(--pixel);
+  font-size: inherit;
   color: var(--magenta);
 }
 .bbs-status .mute:hover {
@@ -206,4 +419,24 @@ body {
 ::selection {
   background: var(--cyan);
   color: #000;
+}
+
+/* ════════════════ NARROW SCREENS ════════════════ */
+@media (max-width: 680px) {
+  .grid-top {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3vw;
+    row-gap: 4.5vw;
+  }
+  .grid-bottom {
+    grid-template-columns: 1fr;
+    gap: 4.5vw;
+  }
+  .bbs-side {
+    flex-direction: row;
+    justify-content: center;
+  }
+  .menu-body {
+    flex-direction: column;
+  }
 }

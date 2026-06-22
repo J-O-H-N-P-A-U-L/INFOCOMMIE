@@ -37,12 +37,12 @@ export const INTRO = [
   "A trace daemon is already sniffing the line — move.",
 ];
 
-// Static brand copy shown by the BBS banner.
+// Static brand copy (English).
 export const BRAND = {
-  wordmark: "ИНФОКОММИ BBS",
-  sub: "«Народная Доска Объявлений» — The People's Board",
-  fido: "FidoNet 2:5020/1917  ·  ANSI / KOI8-R  ·  est. 1917",
-  hint: "type HELP · MANIFESTO · CATALOG — or just start probing the dark",
+  wordmark: "INFOCOMMIE",
+  sub: "THE PEOPLE'S BOARD",
+  fido: "FidoNet 2:5020/1917  ·  ANSI  ·  est. 1917",
+  hint: "type HELP · or DROP CARRIER to bug out",
 };
 
 export function newGame() {
@@ -118,6 +118,28 @@ const WHO =
   "  d.nostalgia ....... ACTIVE — racing you for THE LIST\n" +
   "  v.volta ........... reading Echomail\n" +
   "  [trace_daemon] .... [running]  do not page this process";
+
+const FREENET =
+  "THE FREE NET\n" +
+  "INFOCOMMIE is open source and released into the commons.\n" +
+  "\n" +
+  "  source ... github.com/J-O-H-N-P-A-U-L/INFOCOMMIE\n" +
+  "  comms .... comrade@infocommie.com\n" +
+  "  board .... infocommie.com\n" +
+  "\n" +
+  "No DRM. No landlords. Fork freely, comrade.";
+
+// Page text exposed to the BBS main-menu screen.
+export const PAGES = {
+  motd: MOTD,
+  manifesto: MANIFESTO,
+  catalog: CATALOG,
+  enlist: ENLIST,
+  who: WHO,
+  freenet: FREENET,
+  about: ABOUT,
+  credits: CREDITS,
+};
 
 const META = [
   { t: /^(help|\?|commands|orders|menu)\b/, r: () =>

@@ -1,10 +1,184 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { INTRO, BRAND, newGame, respond } from "./game.js";
+import { INTRO, BRAND, PAGES, newGame, respond } from "./game.js";
 import { play, setMuted } from "./sound.js";
+
+/* ── Pixel icons (crisp-edged inline SVG) ───────────────────────────── */
+function Icon({ name }) {
+  const p = { className: "pix", viewBox: "0 0 16 16", shapeRendering: "crispEdges", "aria-hidden": true };
+  switch (name) {
+    case "grue":
+      return (
+        <svg {...p}>
+          <path d="M2 8a6 6 0 0 1 12 0v6l-2-2-2 2-2-2-2 2-2-2z" fill="#fff" />
+          <rect x="5" y="7" width="2" height="3" fill="#000" />
+          <rect x="9" y="7" width="2" height="3" fill="#000" />
+        </svg>
+      );
+    case "arrow":
+      return (
+        <svg {...p}>
+          <path d="M7 2h2v5h3l-4 4-4-4h3z" fill="#46d96a" />
+          <rect x="3" y="13" width="10" height="2" fill="#46d96a" />
+        </svg>
+      );
+    case "star":
+      return (
+        <svg {...p}>
+          <path d="M8 1l1.8 4.2 4.2.4-3.2 2.9 1 4.1L8 11.4 4.2 13.6l1-4.1L2 6.6l4.2-.4z" fill="#e23b2e" />
+        </svg>
+      );
+    case "flag":
+      return (
+        <svg {...p}>
+          <rect x="3" y="2" width="2" height="12" fill="#bcbcbc" />
+          <path d="M5 2h8l-2 3 2 3H5z" fill="#e23b2e" />
+        </svg>
+      );
+    case "phone":
+      return (
+        <svg {...p}>
+          <path d="M3 3h3l1 3-2 1a8 8 0 0 0 4 4l1-2 3 1v3c-7 0-13-6-13-13z" fill="#36c5c5" />
+        </svg>
+      );
+    case "page":
+      return (
+        <svg {...p}>
+          <path d="M4 2h6l2 2v10H4z" fill="#e8c84a" />
+          <rect x="6" y="6" width="4" height="1" fill="#000" opacity=".45" />
+          <rect x="6" y="8" width="4" height="1" fill="#000" opacity=".45" />
+          <rect x="6" y="10" width="3" height="1" fill="#000" opacity=".45" />
+        </svg>
+      );
+    default:
+      return null;
+  }
+}
+
+/* ── Menu model ─────────────────────────────────────────────────────── */
+const TOP = [
+  { n: "1", cap: "News", title: "Dispatches", icon: "star", page: "motd" },
+  { n: "2", cap: "Read", title: "Manifesto", icon: "flag", page: "manifesto" },
+  { n: "3", cap: "Games", title: "Grue: Trace", icon: "grue", action: "game" },
+  { n: "4", cap: "Files", title: "Catalog", icon: "arrow", page: "catalog" },
+];
+const BOARD = [
+  { n: "5", title: "Enlist", page: "enlist" },
+  { n: "6", title: "Who's Online", page: "who" },
+  { n: "7", title: "Free Net", page: "freenet" },
+];
+const MISC = [
+  { n: "8", title: "About", page: "about" },
+  { n: "9", title: "Credits", page: "credits" },
+  { n: "0", title: "Log Off", action: "logoff" },
+];
+const ALL = [...TOP, ...BOARD, ...MISC];
+
+/* ── Main BBS menu screen (RetroCampus-style) ───────────────────────── */
+function Menu({ onSelect }) {
+  return (
+    <div className="menu">
+      <div className="logo">
+        <span className="logo-a">INFO</span>
+        <span className="logo-b">COMMIE</span>
+        <span className="logo-dot">.com</span>
+      </div>
+
+      <div className="menu-body">
+        <div className="bbs-side" aria-hidden="true">
+          <span>B</span>
+          <span>B</span>
+          <span>S</span>
+        </div>
+
+        <div className="menu-main">
+          <div className="grid-top">
+            {TOP.map((it) => (
+              <button key={it.n} className="mbox" onClick={() => onSelect(it)}>
+                <span className="cap">{it.cap}</span>
+                <span className="ico">
+                  <Icon name={it.icon} />
+                </span>
+                <span className="lbl">{it.title}</span>
+                <span className="num">{it.n}</span>
+              </button>
+            ))}
+          </div>
+
+          <div className="grid-bottom">
+            <div className="wbox">
+              <span className="cap">Board</span>
+              <div className="wrow">
+                <span className="wico">
+                  <Icon name="phone" />
+                </span>
+                <ul>
+                  {BOARD.map((it) => (
+                    <li key={it.n}>
+                      <button onClick={() => onSelect(it)}>
+                        <span className="num">{it.n}</span> {it.title}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div className="wbox">
+              <span className="cap">Misc</span>
+              <div className="wrow">
+                <span className="wico">
+                  <Icon name="page" />
+                </span>
+                <ul>
+                  {MISC.map((it) => (
+                    <li key={it.n}>
+                      <button onClick={() => onSelect(it)}>
+                        <span className="num">{it.n}</span> {it.title}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="credit">
+        by THE INFOCOMMIE COLLECTIVE · 2026
+        <button className="exit" onClick={() => onSelect(MISC[2])}>
+          ▮ Log Off
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/* ── A static content page (manifesto, catalog, etc.) ───────────────── */
+function Page({ pageKey, onBack }) {
+  const text = PAGES[pageKey] || "404 — the collective is still drafting this.";
+  return (
+    <div className="page" onClick={onBack}>
+      <pre className="page-body">{text}</pre>
+      <div className="page-foot">— press 0 or ESC to return to the main menu —</div>
+    </div>
+  );
+}
+
+/* ── The NO CARRIER log-off screen ──────────────────────────────────── */
+function LogOff({ onBack }) {
+  return (
+    <div className="logoff" onClick={onBack}>
+      <pre className="logoff-art">{`+++ATH0\nNO CARRIER`}</pre>
+      <div className="page-foot">
+        the line is dead. solidarity persists. — press any key to redial —
+      </div>
+    </div>
+  );
+}
 
 const Cursor = () => <span className="cursor" aria-hidden="true" />;
 
-// Reveals `full` one character at a time; calls onDone when finished.
 function useTypewriter(full, speed, active, onDone) {
   const [shown, setShown] = useState("");
   const doneRef = useRef(onDone);
@@ -27,31 +201,24 @@ function useTypewriter(full, speed, active, onDone) {
   return shown;
 }
 
-export default function App() {
-  const [history, setHistory] = useState([]); // { kind: 'sys'|'echo', text, tone }
+/* ── The GRUE: TRACE terminal (the game) ────────────────────────────── */
+function Terminal({ onExit, muted, onToggleMute }) {
+  const [history, setHistory] = useState([]);
   const [input, setInput] = useState("");
   const [introIndex, setIntroIndex] = useState(0);
   const [ready, setReady] = useState(false);
   const [game, setGame] = useState(newGame);
-  const [muted, setMutedState] = useState(false);
   const inputRef = useRef(null);
 
   const currentIntro = INTRO[introIndex] || "";
-  const typed = useTypewriter(
-    currentIntro,
-    45,
-    introIndex < INTRO.length,
-    () => {
-      setHistory((h) => [...h, { kind: "sys", text: currentIntro }]);
-      setIntroIndex((n) => n + 1);
-    }
-  );
+  const typed = useTypewriter(currentIntro, 42, introIndex < INTRO.length, () => {
+    setHistory((h) => [...h, { kind: "sys", text: currentIntro }]);
+    setIntroIndex((n) => n + 1);
+  });
 
   useEffect(() => {
     if (introIndex >= INTRO.length) setReady(true);
   }, [introIndex]);
-
-  // Auto-scroll to newest output.
   useEffect(() => {
     window.scrollTo(0, document.body.scrollHeight);
   }, [history, typed]);
@@ -80,40 +247,21 @@ export default function App() {
     if (e.key === "Enter") {
       e.preventDefault();
       submit();
+    } else if (e.key === "Escape") {
+      onExit();
     } else if (e.key.length === 1) {
       play("type");
     }
   };
 
-  const toggleMute = (e) => {
-    e.stopPropagation();
-    const v = !muted;
-    setMuted(v);
-    setMutedState(v);
-    focusInput();
-  };
-
   const dead = !game.alive;
   const won = game.won;
 
-  const rule = "═".repeat(54);
-
   return (
     <div className="crt" onClick={focusInput}>
-      {/* ── ANSI / FidoNet-style BBS welcome banner ── */}
-      <header className="bbs-banner" aria-label="INFOCOMMIE BBS">
-        <div className="bbs-line">
-          <span className="blk">████</span>{" "}
-          <span className="wordmark">{BRAND.wordmark}</span>{" "}
-          <span className="blk">████</span>{" "}
-          <span className="dim">· NODE 1 · 2400 BAUD</span>
-        </div>
-        <div className="bbs-rule">{rule}</div>
-        <div className="bbs-line cyr">{BRAND.sub}</div>
-        <div className="bbs-line dim">{BRAND.fido}</div>
-        <div className="bbs-rule">{rule}</div>
-        <div className="bbs-line hint">{BRAND.hint}</div>
-      </header>
+      <div className="term-head">
+        {BRAND.wordmark} BBS · GRUE: TRACE · NODE 1
+      </div>
 
       <div className="screen">
         {history.map((line, i) => (
@@ -159,17 +307,64 @@ export default function App() {
         )}
       </div>
 
-      {/* ── DOS-style bottom status line ── */}
       <footer className="bbs-status" onClick={(e) => e.stopPropagation()}>
-        <span className="seg inv">NODE 1</span>
+        <button className="seg inv menu-btn" onClick={onExit}>
+          ◄ MENU
+        </button>
         <span className="seg">2400 BAUD</span>
-        <span className="seg">ANSI · KOI8-R</span>
         <span className="seg">{dead ? "OFFLINE" : won ? "MISSION COMPLETE" : "● ONLINE"}</span>
         <span className="seg sysop">SYSOP: comrade@infocommie</span>
-        <button className="seg mute" onClick={toggleMute} aria-label="Toggle sound">
+        <button className="seg mute" onClick={onToggleMute} aria-label="Toggle sound">
           {muted ? "SND:OFF" : "SND:ON"}
         </button>
       </footer>
     </div>
   );
+}
+
+/* ── App shell: routes between menu / page / game / logoff ──────────── */
+export default function App() {
+  const [view, setView] = useState({ type: "menu" });
+  const [muted, setMutedState] = useState(false);
+
+  const toMenu = useCallback(() => setView({ type: "menu" }), []);
+
+  const handleSelect = useCallback((item) => {
+    play("enter");
+    if (item.action === "game") setView({ type: "game" });
+    else if (item.action === "logoff") setView({ type: "logoff" });
+    else setView({ type: "page", key: item.page });
+  }, []);
+
+  const toggleMute = useCallback(() => {
+    setMutedState((m) => {
+      const v = !m;
+      setMuted(v);
+      return v;
+    });
+  }, []);
+
+  // Global keyboard: digits select on the menu; ESC / 0 backs out.
+  useEffect(() => {
+    function onKey(e) {
+      if (e.key === "Escape") {
+        if (view.type !== "menu") toMenu();
+        return;
+      }
+      if (view.type === "menu" && /^[0-9]$/.test(e.key)) {
+        const item = ALL.find((i) => i.n === e.key);
+        if (item) handleSelect(item);
+      } else if ((view.type === "page" || view.type === "logoff") && e.key === "0") {
+        toMenu();
+      }
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [view, handleSelect, toMenu]);
+
+  if (view.type === "game")
+    return <Terminal key="game" onExit={toMenu} muted={muted} onToggleMute={toggleMute} />;
+  if (view.type === "page") return <Page pageKey={view.key} onBack={toMenu} />;
+  if (view.type === "logoff") return <LogOff onBack={toMenu} />;
+  return <Menu onSelect={handleSelect} />;
 }
