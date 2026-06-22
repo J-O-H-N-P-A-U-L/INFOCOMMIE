@@ -1,8 +1,11 @@
 /*
- * INFOCOMMIE — the people's text-adventure engine.
+ * INFOCOMMIE — the people's restoration collective & text-adventure engine.
  *
- * INFOCOMMIE is an interactive-fiction label and collective of implementors
- * ("imps"). This terminal is its flagship production: GRUE — a break-in.
+ * INFOCOMMIE is a collective of implementors ("imps") who LIBERATE the people's
+ * lost classics from the corporate vaults and restore them to the masses —
+ * starting with RETURN TO ZORK: The INFOCOMMIE "Toasty!" Edition — and who also
+ * forge their own original interactive fiction. This terminal is one such
+ * original production: GRUE — a break-in.
  *
  * THE STORY (original; inspired by the spirit of '90s hacker/heist thrillers,
  * not any copyrighted plot):
@@ -63,41 +66,58 @@ const MANIFESTO =
   "\n" +
   "A spectre is haunting the parser — the spectre of free information.\n" +
   "\n" +
-  "  1. All data is collectively owned. The reader is a co-author.\n" +
-  "  2. From each according to their imagination, to each according\n" +
+  "  1. The classics belong to the people who love them, not to the\n" +
+  "     landlords who let them rot in the vault.\n" +
+  "  2. To restore is to resist. We rescue lost worlds, remaster them,\n" +
+  "     and return them — uncrippled — to the commons.\n" +
+  "  3. From each according to their imagination, to each according\n" +
   "     to their curiosity.\n" +
-  "  3. The grue is not your enemy. The grue is the trace, and the\n" +
+  "  4. The grue is not your enemy. The grue is the trace, and the\n" +
   "     trace is just a policy made of teeth.\n" +
-  "  4. Property is theft. Root is the people's.\n" +
-  "  5. Workers of the world:  > _\n" +
+  "  5. Property is theft. Root is the people's.\n" +
+  "  6. Workers of the world:  > _\n" +
   "\n" +
-  "Seize the means of computation.";
+  "Seize the means of computation. Preserve what they would abandon.";
 
 const CATALOG =
-  "INFOCOMMIE PRODUCTIONS — the people's catalog\n" +
+  "INFOCOMMIE — the people's catalog\n" +
   "\n" +
-  "  GRUE: TRACE (this break-in) ............ shipping now, comrade\n" +
-  "  ACT I  — COMRADE DUSK (the operator) ... in development\n" +
-  "  ACT II — VERA VOLTA (the social eng.) .. in development\n" +
-  "  ACT III— BORIS BULK (the muscle) ....... pre-production\n" +
-  "  THE ETERNAL CHAIRMAN MUST NOT RISE ..... seeking comrades\n" +
+  "  LIBERATED FROM THE VAULTS (restorations)\n" +
+  "  Return to Zork: INFOCOMMIE \"Toasty!\" Edition .. liberated now\n" +
+  "    1993 classic, every frame restored, scored on real iron (MT-32)\n" +
+  "  [the next classic] ............................ queued for rescue\n" +
   "\n" +
-  "  All titles original. Released into the commons. No landlords.";
+  "  OUR OWN PRODUCTIONS (original IF)\n" +
+  "  GRUE: TRACE (this break-in) ................... shipping now, comrade\n" +
+  "  ACT I  — COMRADE DUSK (the operator) ......... in development\n" +
+  "  ACT II — VERA VOLTA (the social eng.) ........ in development\n" +
+  "\n" +
+  "  Restorations are non-commercial homage; originals are ours, in the\n" +
+  "  commons. No landlords either way.";
 
 const ABOUT =
-  "INFOCOMMIE is an interactive-fiction label and a collective of\n" +
-  "implementors (\"imps\") reviving the lost art of the text adventure —\n" +
-  "no graphics, no microtransactions, no masters. Just you, a prompt,\n" +
-  "and the dark.\n" +
+  "INFOCOMMIE is a collective of implementors (\"imps\") who LIBERATE the\n" +
+  "people's lost classics — the great adventures left to rot in corporate\n" +
+  "vaults — and restore them to the masses: remastered, uncrippled, free\n" +
+  "to witness. No graphics downgrades, no microtransactions, no masters.\n" +
   "\n" +
-  "Our flagship: a three-act break-in across a crumbling state, of which\n" +
-  "GRUE: TRACE is the cold open.\n" +
-  "Founded in the spirit of the original Infocommies (MIT, 22 June 1979).";
+  "First liberation from the vault:\n" +
+  "  RETURN TO ZORK — The INFOCOMMIE \"Toasty!\" Edition. A 1993 classic,\n" +
+  "  every frame individually restored, scored live on real iron (a\n" +
+  "  Roland MT-32). More classics are queued for rescue.\n" +
+  "\n" +
+  "We also forge our own original IF — like GRUE: TRACE, the break-in\n" +
+  "you're dialed into now.\n" +
+  "\n" +
+  "Founded in the spirit of the original Infocommies — the fan cells who\n" +
+  "rallied around Infocom's games in the early 1980s.";
 
 const CREDITS =
-  "In tribute to the original Infocommies who lit the first lantern:\n" +
+  "In tribute to the implementors who lit the first lantern:\n" +
   "Anderson, Berez, Blank, Lebling, Galley, Meretzky, Moriarty & comrades.\n" +
-  "Infocom — incorporated 22 June 1979.\n" +
+  "Infocom — incorporated 22 June 1979; the games began in 1980.\n" +
+  "The original Infocommies — us, the fans — rallied to those games across\n" +
+  "the early-to-mid 1980s, swapping maps and InvisiClues on the boards.\n" +
   "The grue is Dave Lebling's, by way of Jack Vance. We only borrow it.";
 
 const ENLIST =
@@ -109,8 +129,9 @@ const ENLIST =
 const MOTD =
   "*** MESSAGE OF THE DAY ***\n" +
   "Welcome to INFOCOMMIE BBS, comrade. 2400 baud of pure solidarity.\n" +
-  "Public sectors are open. The other sectors are not yours yet.\n" +
-  "Tonight's feature: GRUE — TRACE. Mind the daemon.";
+  "FRESH FROM THE VAULT: Return to Zork — The INFOCOMMIE \"Toasty!\"\n" +
+  "Edition. A 1993 classic, liberated and restored. See CATALOG.\n" +
+  "Tonight's original feature: GRUE — TRACE. Mind the daemon.";
 
 const WHO =
   "USERS ONLINE  —  NODE 1 of 1\n" +
@@ -223,7 +244,7 @@ function ruleEngine(raw, state) {
   // Once you've won, bask.
   if (state.won) {
     return {
-      reply: "The job is done and THE LIST is the people's. Type RESTART to run it again, or CATALOG to see what the label is building.",
+      reply: "The job is done and THE LIST is the people's. Type RESTART to run it again, or CATALOG to see what the collective is liberating.",
       state,
       sound: "type",
     };

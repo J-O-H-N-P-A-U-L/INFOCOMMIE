@@ -1,10 +1,15 @@
 # INFOCOMMIE
 
-> It is pitch black. You are likely to be eaten by a grue.
+> It is pitch black. You are likely to be expropriated by a grue.
 
-A tiny Zork-themed text-adventure landing page — a React SPA on a black screen
-with a blinking cursor that accepts commands like an old-school interactive
-fiction console.
+The landing page for **INFOCOMMIE** — a collective of imps that liberates the
+people's lost classics from the corporate vaults and restores them to the
+masses (first out: *Return to Zork — The INFOCOMMIE "Toasty!" Edition*), and
+forges its own original interactive fiction.
+
+The site itself is a React SPA: a Soviet-agitprop BBS front whose flagship
+original production, **GRUE: TRACE**, runs on a black screen with a blinking
+cursor — commands typed like an old-school interactive-fiction console.
 
 > 📈 Business strategy, monetization plan, and the all-important copyright/IP
 > risk map live in **[BUSINESS.md](BUSINESS.md)**.

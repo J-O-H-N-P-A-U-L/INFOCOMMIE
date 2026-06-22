@@ -2,7 +2,7 @@
   "name": "grue",
   "private": true,
   "version": "1.0.0",
-  "description": "It is pitch black. You are likely to be eaten by a grue. A tiny Zork-themed React SPA.",
+  "description": "INFOCOMMIE — the people's restoration collective. Soviet-agitprop BBS front + GRUE: TRACE, a React SPA.",
   "type": "module",
   "scripts": {
     "dev": "vite",

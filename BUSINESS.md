@@ -15,22 +15,32 @@ profitable, independent label.*
   - Bootstrapped, solo-or-tiny team, no outside investors.
   - Web-first. The browser terminal is the storefront and the funnel.
   - The agitprop voice is the brand and stays.
-- **One-line thesis:** *Free, browser-native text adventures with a cult
-  aesthetic pull people in; original premium stories, a membership "collective,"
-  and highly merchable propaganda art turn attention into money.*
+  - **Restoration-first.** We are known for *liberating and remastering lost
+    classics* (Return to Zork: The INFOCOMMIE "Toasty!" Edition first, more to
+    follow). The restorations are the heart — and they stay **non-commercial /
+    homage**. Original IF + merch + membership are what we actually sell.
+- **One-line thesis:** *Lovingly restored classics, freed from the vault and
+  given away, pull the people in; our own original stories, a membership
+  "collective," and highly merchable propaganda art turn that attention into
+  money. The restorations earn trust and reach; the originals pay the rent.*
 
 ---
 
 ## 1. The Business Manifesto
 
-We are an **interactive-fiction label** — a small, independent studio reviving
-the text adventure for a generation raised on chat interfaces. The whole world
-is talking to text boxes now. We make the text box *worth* talking to.
+We are a **restoration collective and interactive-fiction studio** — we
+liberate the people's lost classics from the corporate vaults, lovingly
+remaster them, and give them back to the masses; and we forge our own original
+text adventures for a generation raised on chat interfaces. The whole world is
+talking to text boxes now. We make the text box *worth* talking to — and we
+make sure the great ones aren't left to rot behind a licensing desk.
 
 Six operating principles (on-brand, but they're also just good business):
 
-1. **Original worlds, collectively enjoyed.** We build IP we own outright. The
-   homage to Infocom is in our *spirit*, never in our *deeds* to a product.
+1. **Two tracks, one conscience.** *Restorations* are non-commercial homage —
+   we liberate and remaster lost classics and give them away, never sell them.
+   *Originals* are IP we own outright and are free to monetize. Keep the two
+   tracks clean and never blur them (don't sell, gate, or merch a restoration).
 2. **The funnel is free; the deluxe is paid.** Free browser games are marketing.
    Premium episodes, collections, and merch are revenue.
 3. **Own the whole stack.** Our engine, our domain, our mailing list, our art.
@@ -50,6 +60,23 @@ Six operating principles (on-brand, but they're also just good business):
 
 Infocom and Zork are owned by **Activision** (which bought Infocom in 1986).
 That ownership is live and real. Here's the plain-English risk map.
+
+### The restoration track — read this twice 🔴
+Our headline act is restoring *Return to Zork* (Activision's game). That is a
+**fan restoration of someone else's copyrighted work** — a different and, if
+mishandled, *bigger* risk than our original IF. The rules that keep it survivable:
+- **Strictly non-commercial.** No selling the restored game, no ads on it, no
+  paywall, no merch *of it*, no donations *tied to it*. The moment money touches
+  a restoration, "homage" stops being a defense.
+- **Ship the engine/tools, not the assets.** Follow the ScummVM model: the
+  player must bring their own original game data. We distribute our *engine
+  fork, patches, and remaster recipe* — not Activision's copyrighted media.
+- **Showcase, don't host.** A YouTube/Twitch *showcase* of your own restoration
+  is far safer than redistributing the playable game or its ripped assets.
+- **Credit + disclaim.** "Return to Zork © Activision; a non-commercial fan
+  restoration; no affiliation or endorsement," prominently.
+- All the *paid* tiers below (originals, merch, membership) must be built on
+  **our own IP**, never on a restoration. Keep the firewall absolute.
 
 ### What is genuinely risky 🔴
 - **Using "ZORK" or "INFOCOM" as a product name or brand.** These are active
@@ -104,6 +131,7 @@ That ownership is live and real. Here's the plain-English risk map.
 
 | Tier | Product | Role | Money? |
 |---|---|---|---|
+| R | **Restorations** (RTZ "Toasty!" Edition + future classics) — showcased on YouTube/Twitch | The brand's heart; trust + reach | **No — non-commercial homage, by design** |
 | 0 | **GRUE terminal** (live) | Calling card / funnel | No — it sells the brand |
 | 1 | Free original short web IF | SEO + social reach, email capture | No — feeds the list |
 | 2 | Premium original titles (itch / Steam / App Store / web) | Core product | **Yes** |
