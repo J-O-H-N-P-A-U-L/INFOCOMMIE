@@ -6,7 +6,7 @@
  *
  * THE STORY (original; inspired by the spirit of '90s hacker/heist thrillers,
  * not any copyrighted plot):
- *   You dialed into ИНФОКОММИ BBS. It's a front. Behind it sits the STATE
+ *   You dialed into INFOCOMMIE BBS. It's a front. Behind it sits the STATE
  *   SECURITY ARCHIVE, and somewhere in its dark partitions is THE LIST — every
  *   covert operative's name. Exfiltrate it and leak it to the free net before
  *   the system's TRACE DAEMON pinpoints your line. The daemon — the grue — is
@@ -108,7 +108,7 @@ const ENLIST =
 
 const MOTD =
   "*** MESSAGE OF THE DAY ***\n" +
-  "Welcome to ИНФОКОММИ BBS, comrade. 2400 baud of pure solidarity.\n" +
+  "Welcome to INFOCOMMIE BBS, comrade. 2400 baud of pure solidarity.\n" +
   "Public sectors are open. The other sectors are not yours yet.\n" +
   "Tonight's feature: GRUE — TRACE. Mind the daemon.";
 
