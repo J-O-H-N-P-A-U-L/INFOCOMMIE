@@ -96,18 +96,24 @@ export default function App() {
   const dead = !game.alive;
   const won = game.won;
 
+  const rule = "═".repeat(54);
+
   return (
     <div className="crt" onClick={focusInput}>
-      <button className="mute" onClick={toggleMute} aria-label="Toggle sound">
-        {muted ? "[ sound: off ]" : "[ sound: on ]"}
-      </button>
-
-      <div className="banner">
-        <span className="wordmark">{BRAND.wordmark}</span>
-        <span className="star" aria-hidden="true">★</span>
-        <span className="tagline">{BRAND.tagline}</span>
-        <div className="hint">{BRAND.hint}</div>
-      </div>
+      {/* ── ANSI / FidoNet-style BBS welcome banner ── */}
+      <header className="bbs-banner" aria-label="INFOCOMMIE BBS">
+        <div className="bbs-line">
+          <span className="blk">████</span>{" "}
+          <span className="wordmark">{BRAND.wordmark}</span>{" "}
+          <span className="blk">████</span>{" "}
+          <span className="dim">· NODE 1 · 2400 BAUD</span>
+        </div>
+        <div className="bbs-rule">{rule}</div>
+        <div className="bbs-line cyr">{BRAND.sub}</div>
+        <div className="bbs-line dim">{BRAND.fido}</div>
+        <div className="bbs-rule">{rule}</div>
+        <div className="bbs-line hint">{BRAND.hint}</div>
+      </header>
 
       <div className="screen">
         {history.map((line, i) => (
@@ -152,6 +158,18 @@ export default function App() {
           </div>
         )}
       </div>
+
+      {/* ── DOS-style bottom status line ── */}
+      <footer className="bbs-status" onClick={(e) => e.stopPropagation()}>
+        <span className="seg inv">NODE 1</span>
+        <span className="seg">2400 BAUD</span>
+        <span className="seg">ANSI · KOI8-R</span>
+        <span className="seg">{dead ? "OFFLINE" : won ? "MISSION COMPLETE" : "● ONLINE"}</span>
+        <span className="seg sysop">SYSOP: comrade@infocommie</span>
+        <button className="seg mute" onClick={toggleMute} aria-label="Toggle sound">
+          {muted ? "SND:OFF" : "SND:ON"}
+        </button>
+      </footer>
     </div>
   );
 }
