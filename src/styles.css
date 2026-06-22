@@ -4,6 +4,7 @@
   --dim: #6f6f6f;
   --death: #e05a4a;
   --win: #7ad17a;
+  --red: #e23b2e;
   --font: "VT323", "Courier New", monospace;
 }
 
@@ -40,6 +41,31 @@ body {
     transparent 1px,
     transparent 3px
   );
+}
+
+.banner {
+  margin-bottom: 1.2em;
+  line-height: 1.05;
+}
+.banner .wordmark {
+  color: var(--red);
+  letter-spacing: 0.12em;
+  font-size: 1.15em;
+  text-shadow: 0 0 8px rgba(226, 59, 46, 0.45);
+}
+.banner .star {
+  color: var(--red);
+  margin: 0 0.5ch;
+  text-shadow: 0 0 8px rgba(226, 59, 46, 0.45);
+}
+.banner .tagline {
+  color: var(--fg);
+}
+.banner .hint {
+  color: var(--dim);
+  font-size: 0.72em;
+  margin-top: 0.3em;
+  letter-spacing: 0.02em;
 }
 
 .screen {
@@ -81,6 +107,7 @@ body {
 
 .caret {
   margin-right: 0.4ch;
+  color: var(--red);
 }
 
 .input-text {

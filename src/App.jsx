@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { INTRO, newGame, respond } from "./game.js";
+import { INTRO, BRAND, newGame, respond } from "./game.js";
 import { play, setMuted } from "./sound.js";
 
 const Cursor = () => <span className="cursor" aria-hidden="true" />;
@@ -101,6 +101,13 @@ export default function App() {
       <button className="mute" onClick={toggleMute} aria-label="Toggle sound">
         {muted ? "[ sound: off ]" : "[ sound: on ]"}
       </button>
+
+      <div className="banner">
+        <span className="wordmark">{BRAND.wordmark}</span>
+        <span className="star" aria-hidden="true">★</span>
+        <span className="tagline">{BRAND.tagline}</span>
+        <div className="hint">{BRAND.hint}</div>
+      </div>
 
       <div className="screen">
         {history.map((line, i) => (
