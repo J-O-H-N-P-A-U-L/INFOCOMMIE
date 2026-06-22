@@ -6,6 +6,9 @@ A tiny Zork-themed text-adventure landing page — a React SPA on a black screen
 with a blinking cursor that accepts commands like an old-school interactive
 fiction console.
 
+> 📈 Business strategy, monetization plan, and the all-important copyright/IP
+> risk map live in **[BUSINESS.md](BUSINESS.md)**.
+
 ## Play
 
 - `feel around` — grope the dark for something useful
