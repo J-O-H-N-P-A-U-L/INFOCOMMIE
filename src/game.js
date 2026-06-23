@@ -7,7 +7,7 @@
  * Roland MT-32 hardware, streamed on YouTube and Twitch. Return to Zork: The
  * INFOCOMMIE "Toasty!" Edition is the opening act; Loom, Police Quest 2, The
  * Big Red Adventure, Hell: A Cyberpunk Thriller and more follow over the months.
- * We also forge our own original IF (this terminal, GRUE — a break-in). We
+ * We also forge our own original IF (this terminal, SPOOK — a break-in). We
  * celebrate the classics; we don't distribute them — they belong to their makers.
  *
  * THE STORY (original; inspired by the spirit of '90s hacker/heist thrillers,
@@ -15,14 +15,14 @@
  *   You dialed into INFOCOMMIE BBS. It's a front. Behind it sits the STATE
  *   SECURITY ARCHIVE, and somewhere in its dark partitions is THE LIST — every
  *   covert operative's name. Exfiltrate it and leak it to the free net before
- *   the system's TRACE DAEMON pinpoints your line. The daemon — the grue — is
+ *   the system's TRACE DAEMON pinpoints your line. The daemon — the spook — is
  *   the ICE that lurks in unlit sectors and devours any intruder caught alone
  *   in the dark with an unmasked session.
  *
  * No chatbot library — an ordered list of regex rules. Pure function:
  *   respond(input, state) -> { reply, state, sound }
  *
- * The game loop, mechanically unchanged from the original grue terminal:
+ * The game loop, mechanically unchanged from the original spook terminal:
  *   - FEEL / SCAN the filesystem to find an idle session (a stored credential).
  *   - ROOT it (escalate) — the directory tree lights up; the trace recoils.
  *   - COPY THE LIST (only readable once you have root).
@@ -75,7 +75,7 @@ const MANIFESTO =
   "     FMV thrillers. We keep the lamps lit and the MT-32 singing.\n" +
   "  3. To restore is to honour. We revive the classics and put their\n" +
   "     playthroughs on the screen for all to enjoy.\n" +
-  "  4. The grue is not your enemy. The grue is the trace, and the\n" +
+  "  4. The spook is not your enemy. The spook is the trace, and the\n" +
   "     trace is just a policy made of teeth.\n" +
   "  5. Credit the makers. Showcase the games. Sell nothing but our own.\n" +
   "  6. Workers of the world:  > _\n" +
@@ -95,7 +95,7 @@ const CATALOG =
   "  ...and more golden-age classics, rolling out over the months\n" +
   "\n" +
   "  OUR OWN PRODUCTIONS (original IF)\n" +
-  "  GRUE: TRACE (this break-in) ........................... shipping now\n" +
+  "  SPOOK: TRACE (this break-in) ........................... shipping now\n" +
   "  ACT I — COMRADE DUSK (the operator) ................... in development\n" +
   "\n" +
   "  WATCH  youtube.com/@INFOCOMMIE  ·  twitch.tv/infocommie\n" +
@@ -120,7 +120,7 @@ const ABOUT =
   "  > Hell: A Cyberpunk Thriller (1994)\n" +
   "  ...and more golden-age classics, all on real MT-32 iron.\n" +
   "\n" +
-  "We also write our own original IF — like GRUE: TRACE, the break-in\n" +
+  "We also write our own original IF — like SPOOK: TRACE, the break-in\n" +
   "you're dialed into now.\n" +
   "\n" +
   "  WATCH   youtube.com/@INFOCOMMIE  ·  twitch.tv/infocommie\n" +
@@ -139,8 +139,7 @@ const CREDITS =
   "And to every studio that built the golden age after them — Sierra,\n" +
   "Lucasfilm Games, and all the rest whose worlds we still keep lit.\n" +
   "The original Infocommies — us, the fans — rallied across the early-to-\n" +
-  "mid 1980s, swapping maps and InvisiClues on the boards.\n" +
-  "The grue is Dave Lebling's, by way of Jack Vance. We only borrow it.";
+  "mid 1980s, swapping maps and InvisiClues on the boards.";
 
 const ENLIST =
   "ENLIST IN THE COLLECTIVE\n" +
@@ -155,7 +154,7 @@ const MOTD =
   "on real MT-32 iron. Watch the playthrough on YouTube & Twitch.\n" +
   "NEXT FROM THE VAULT: Loom · Police Quest 2 · The Big Red Adventure ·\n" +
   "Hell: A Cyberpunk Thriller — rolling out over the months. See CATALOG.\n" +
-  "Tonight's original feature: GRUE — TRACE. Mind the daemon.";
+  "Tonight's original feature: SPOOK — TRACE. Mind the daemon.";
 
 const WHO =
   "USERS ONLINE  —  NODE 1 of 1\n" +
@@ -227,7 +226,7 @@ const FALLBACKS = [
 
 const DEATH = [
   "TRACE COMPLETE. The daemon pinpoints your line and the sentinel drags your session into the dark.\n\n*** CONNECTION TERMINATED ***",
-  "You stayed unmasked in the dark too long. The trace feeds on exactly this.\n\n*** CONNECTION TERMINATED — you have been eaten by a grue ***",
+  "You stayed unmasked in the dark too long. The trace feeds on exactly this.\n\n*** CONNECTION TERMINATED — you have been eaten by a spook ***",
   "Too slow, comrade. Doktor Nostalgia's countermeasure was patient; your line was privatizable.\n\n*** CONNECTION TERMINATED ***",
 ];
 
@@ -390,8 +389,8 @@ function ruleEngine(raw, state) {
 
 // Flavor-only rules (no state change), agitprop-tinted.
 const FLAVOR = [
-  { t: /\b(grue|trace|daemon|ice|sentinel|countermeasure)\b/, r: [
-    "The trace daemon — the grue — is a lurking process that feeds on intruders caught alone in the dark with an unmasked session. You are, for now, exactly that.",
+  { t: /\b(spook|trace|daemon|ice|sentinel|countermeasure)\b/, r: [
+    "The trace daemon — the spook — is a lurking process that feeds on intruders caught alone in the dark with an unmasked session. You are, for now, exactly that.",
     "The daemon does not negotiate. The daemon does not unionize. The daemon simply terminates. Be unlike the daemon.",
   ]},
   { t: /\b(nostalgia|doktor|doctor|villain|chairman|rival)\b/, r: [
@@ -415,7 +414,7 @@ const FLAVOR = [
     "The daemon accepts no appeals. It accepts only the unmasked and the alone.",
   ]},
   { t: /\b(eat|drink|taste|bite|lick)\b/, r: [
-    "Funny you should bring up eating. The grue was about to. Consumption is the daemon's only mode of production.",
+    "Funny you should bring up eating. The spook was about to. Consumption is the daemon's only mode of production.",
     "There's nothing to eat on the wire. You, however, remain a tempting packet.",
   ]},
   { t: /\b(sing|shout|scream|yell|chant|strike|protest)\b/, r: [

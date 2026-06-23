@@ -1,8 +1,8 @@
 {
-  "name": "grue",
+  "name": "spook",
   "private": true,
   "version": "1.0.0",
-  "description": "INFOCOMMIE — the people's restoration collective. Soviet-agitprop BBS front + GRUE: TRACE, a React SPA.",
+  "description": "INFOCOMMIE — the people's restoration collective. Soviet-agitprop BBS front + SPOOK: TRACE, a React SPA.",
   "type": "module",
   "scripts": {
     "dev": "vite",

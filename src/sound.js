@@ -39,7 +39,7 @@ function tone(freq, dur, type = "square", gain = 0.04, when = 0) {
   osc.stop(t + dur + 0.02);
 }
 
-// A descending growl-ish noise for the grue.
+// A descending growl-ish noise for the spook.
 function growl() {
   const ac = ensure();
   if (!ac || muted) return;
