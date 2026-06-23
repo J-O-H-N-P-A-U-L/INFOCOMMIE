@@ -157,15 +157,15 @@ function Menu({ onSelect }) {
 /* ── A static content page (manifesto, catalog, etc.) ───────────────── */
 // Turn the channel URLs in page text into real clickable links (open in a new
 // tab, straight to the channel). Everything else renders as plain <pre> text.
-const LINK_SPLIT = /((?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/@INFOCOMMIE|twitch\.tv\/infocommie))/gi;
-const LINK_TEST = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/@INFOCOMMIE|twitch\.tv\/infocommie)$/i;
+const LINK_SPLIT = /((?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/@COMRADEINFOCOMMIE|twitch\.tv\/comradeinfocommie))/gi;
+const LINK_TEST = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/@COMRADEINFOCOMMIE|twitch\.tv\/comradeinfocommie)$/i;
 
 function linkify(text) {
   return text.split(LINK_SPLIT).map((part, i) => {
     if (LINK_TEST.test(part)) {
       const href = /youtube/i.test(part)
-        ? "https://www.youtube.com/@INFOCOMMIE"
-        : "https://www.twitch.tv/infocommie";
+        ? "https://www.youtube.com/@COMRADEINFOCOMMIE"
+        : "https://www.twitch.tv/comradeinfocommie";
       return (
         <a
           key={i}
@@ -340,7 +340,7 @@ function Terminal({ onExit, muted, onToggleMute }) {
         </button>
         <span className="seg">2400 BAUD</span>
         <span className="seg">{dead ? "OFFLINE" : won ? "MISSION COMPLETE" : "● ONLINE"}</span>
-        <span className="seg sysop">SYSOP: cyberpunk94@hotmail.com</span>
+        <span className="seg sysop">SYSOP: COMRADE INFOCOMMIE</span>
         <button className="seg mute" onClick={onToggleMute} aria-label="Toggle sound">
           {muted ? "SND:OFF" : "SND:ON"}
         </button>
