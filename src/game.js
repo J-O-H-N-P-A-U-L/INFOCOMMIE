@@ -15,7 +15,7 @@
  *   You dialed into INFOCOMMIE BBS. It's a front. Behind it sits the STATE
  *   SECURITY ARCHIVE, and somewhere in its dark partitions is THE LIST — every
  *   covert operative's name. Exfiltrate it and leak it to the free net before
- *   the system's TRACE DAEMON pinpoints your line. The daemon — the Cleaner — is
+ *   the system's TRACE DAEMON pinpoints your line. The daemon — the Crimson Tide — is
  *   the ICE that lurks in unlit sectors and devours any intruder caught alone
  *   in the dark with an unmasked session.
  *
@@ -75,7 +75,7 @@ const MANIFESTO =
   "     FMV thrillers. We keep the lamps lit and the MT-32 singing.\n" +
   "  3. To restore is to honour. We revive the classics and put their\n" +
   "     playthroughs on the screen for all to enjoy.\n" +
-  "  4. The Cleaner is not your enemy. The Cleaner is the trace, and the\n" +
+  "  4. The Crimson Tide is not your enemy. The Crimson Tide is the trace, and the\n" +
   "     trace is just a policy made of teeth.\n" +
   "  5. Credit the makers. Showcase the games. Sell nothing but our own.\n" +
   "  6. Workers of the world:  > _\n" +
@@ -226,7 +226,7 @@ const FALLBACKS = [
 
 const DEATH = [
   "TRACE COMPLETE. The daemon pinpoints your line and the sentinel drags your session into the dark.\n\n*** CONNECTION TERMINATED ***",
-  "You stayed unmasked in the dark too long. The trace feeds on exactly this.\n\n*** CONNECTION TERMINATED — you have been erased by the Cleaner ***",
+  "You stayed unmasked in the dark too long. The trace feeds on exactly this.\n\n*** CONNECTION TERMINATED — you have been erased by the Crimson Tide ***",
   "Too slow, comrade. Doktor Nostalgia's countermeasure was patient; your line was privatizable.\n\n*** CONNECTION TERMINATED ***",
 ];
 
@@ -389,8 +389,8 @@ function ruleEngine(raw, state) {
 
 // Flavor-only rules (no state change), agitprop-tinted.
 const FLAVOR = [
-  { t: /\b(cleaner|trace|daemon|ice|sentinel|countermeasure)\b/, r: [
-    "The trace daemon — the Cleaner — is a lurking process that feeds on intruders caught alone in the dark with an unmasked session. You are, for now, exactly that.",
+  { t: /\b(crimson|tide|trace|daemon|ice|sentinel|countermeasure)\b/, r: [
+    "The trace daemon — the Crimson Tide — is a lurking process that feeds on intruders caught alone in the dark with an unmasked session. You are, for now, exactly that.",
     "The daemon does not negotiate. The daemon does not unionize. The daemon simply terminates. Be unlike the daemon.",
   ]},
   { t: /\b(nostalgia|doktor|doctor|villain|chairman|rival)\b/, r: [
@@ -414,7 +414,7 @@ const FLAVOR = [
     "The daemon accepts no appeals. It accepts only the unmasked and the alone.",
   ]},
   { t: /\b(eat|drink|taste|bite|lick)\b/, r: [
-    "Funny you should bring up eating. The Cleaner was about to. Consumption is the daemon's only mode of production.",
+    "Funny you should bring up eating. The Crimson Tide was about to. Consumption is the daemon's only mode of production.",
     "There's nothing to eat on the wire. You, however, remain a tempting packet.",
   ]},
   { t: /\b(sing|shout|scream|yell|chant|strike|protest)\b/, r: [

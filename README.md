@@ -1,6 +1,6 @@
 # INFOCOMMIE
 
-> It is pitch black. You are likely to be erased by the Cleaner.
+> It is pitch black. You are likely to be erased by the Crimson Tide.
 
 The landing page for **INFOCOMMIE** — a collective of imps that liberates the
 people's lost classics from the corporate vaults and restores them to the
@@ -17,9 +17,9 @@ cursor — commands typed like an old-school interactive-fiction console.
 ## Play
 
 - `feel around` — grope the dark for something useful
-- `take lamp` → `light lamp` — evade the Cleaner and reveal the way out
+- `take lamp` → `light lamp` — evade the Crimson Tide and reveal the way out
 - `go west` — escape into daylight (you win)
-- ...or just flail and get erased by the Cleaner
+- ...or just flail and get erased by the Crimson Tide
 - `restart` — back into the dark
 - `help` — list the verbs that matter
 
