@@ -340,7 +340,7 @@ function Terminal({ onExit, muted, onToggleMute }) {
         </button>
         <span className="seg">2400 BAUD</span>
         <span className="seg">{dead ? "OFFLINE" : won ? "MISSION COMPLETE" : "● ONLINE"}</span>
-        <span className="seg sysop">SYSOP: comrade@infocommie</span>
+        <span className="seg sysop">SYSOP: cyberpunk94@hotmail.com</span>
         <button className="seg mute" onClick={onToggleMute} aria-label="Toggle sound">
           {muted ? "SND:OFF" : "SND:ON"}
         </button>

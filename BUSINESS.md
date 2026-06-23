@@ -172,7 +172,7 @@ and prove demand before you sink months into a paid title.
 - [ ] Wire up **real email capture** on the site (`enlist` → Buttondown/Formspree).
 - [ ] Write a one-page **IP bible** for an original world + signature monster.
 - [ ] Scrub the catalog of Activision marks; replace with original titles.
-- [ ] Stand up `comrade@infocommie.com` (forwarding inbox).
+- [ ] Stand up `cyberpunk94@hotmail.com` (forwarding inbox).
 - **Success metric:** legal go/no-go on the name; first 50 emails on the list.
 
 ### Phase 1 — First Blood (month 1–3)

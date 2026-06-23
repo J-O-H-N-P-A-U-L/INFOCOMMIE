@@ -144,7 +144,7 @@ const CREDITS =
 const ENLIST =
   "ENLIST IN THE COLLECTIVE\n" +
   "There are no dues. There is only solidarity (and the occasional\n" +
-  "dispatch). Transmit your intentions to comrade@infocommie.com and a\n" +
+  "dispatch). Transmit your intentions to cyberpunk94@hotmail.com and a\n" +
   "fellow imp will receive you. Workers of the world, subscribe.";
 
 const MOTD =
@@ -169,7 +169,7 @@ const FREENET =
   "\n" +
   "  watch .... youtube.com/@INFOCOMMIE\n" +
   "  stream ... twitch.tv/infocommie\n" +
-  "  comms .... comrade@infocommie.com\n" +
+  "  comms .... cyberpunk94@hotmail.com\n" +
   "  board .... infocommie.com\n" +
   "\n" +
   "The classics we showcase belong to their makers — we stream the\n" +
