@@ -1,8 +1,8 @@
 {
-  "name": "spook",
+  "name": "spy-game",
   "private": true,
   "version": "1.0.0",
-  "description": "INFOCOMMIE — the people's restoration collective. Soviet-agitprop BBS front + SPOOK: TRACE, a React SPA.",
+  "description": "INFOCOMMIE — the people's restoration collective. Soviet-agitprop BBS front + SPY GAME, a React SPA.",
   "type": "module",
   "scripts": {
     "dev": "vite",

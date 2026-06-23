@@ -6,7 +6,7 @@ import { play, setMuted } from "./sound.js";
 function Icon({ name }) {
   const p = { className: "pix", viewBox: "0 0 16 16", shapeRendering: "crispEdges", "aria-hidden": true };
   switch (name) {
-    case "spook":
+    case "spy":
       return (
         <svg {...p}>
           <path d="M2 8a6 6 0 0 1 12 0v6l-2-2-2 2-2-2-2 2-2-2z" fill="#fff" />
@@ -58,7 +58,7 @@ function Icon({ name }) {
 const TOP = [
   { n: "1", cap: "News", title: "Dispatches", icon: "star", page: "motd" },
   { n: "2", cap: "Read", title: "Manifesto", icon: "flag", page: "manifesto" },
-  { n: "3", cap: "Games", title: "Spook: Trace", icon: "spook", action: "game" },
+  { n: "3", cap: "Games", title: "Spy Game", icon: "spy", action: "game" },
   { n: "4", cap: "Files", title: "Catalog", icon: "arrow", page: "catalog" },
 ];
 const BOARD = [
@@ -201,7 +201,7 @@ function useTypewriter(full, speed, active, onDone) {
   return shown;
 }
 
-/* ── The SPOOK: TRACE terminal (the game) ────────────────────────────── */
+/* ── The SPY GAME terminal (the game) ────────────────────────────── */
 function Terminal({ onExit, muted, onToggleMute }) {
   const [history, setHistory] = useState([]);
   const [input, setInput] = useState("");
@@ -260,7 +260,7 @@ function Terminal({ onExit, muted, onToggleMute }) {
   return (
     <div className="crt" onClick={focusInput}>
       <div className="term-head">
-        {BRAND.wordmark} BBS · SPOOK: TRACE · NODE 1
+        {BRAND.wordmark} BBS · SPY GAME · NODE 1
       </div>
 
       <div className="screen">
