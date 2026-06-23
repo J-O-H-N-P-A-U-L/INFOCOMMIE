@@ -1,12 +1,14 @@
 /*
  * INFOCOMMIE — the people's restoration collective & text-adventure engine.
  *
- * INFOCOMMIE is a collective of retro superfans ("imps") who lovingly RESTORE
- * the classic adventures they grew up on and SHOWCASE them as full playthroughs
- * on YouTube and Twitch — starting with RETURN TO ZORK: The INFOCOMMIE "Toasty!"
- * Edition — and who also forge their own original interactive fiction. This
- * terminal is one such original production: GRUE — a break-in. We celebrate the
- * classics; we don't distribute them — they belong to their makers.
+ * INFOCOMMIE is a diehard fan collective ("imps") — heirs to the original
+ * Infocommies — devoted to the whole golden age of the adventure game. We
+ * restore these classics and SHOWCASE them as full playthroughs, on real
+ * Roland MT-32 hardware, streamed on YouTube and Twitch. Return to Zork: The
+ * INFOCOMMIE "Toasty!" Edition is the opening act; Loom, Police Quest 2, The
+ * Big Red Adventure, Hell: A Cyberpunk Thriller and more follow over the months.
+ * We also forge our own original IF (this terminal, GRUE — a break-in). We
+ * celebrate the classics; we don't distribute them — they belong to their makers.
  *
  * THE STORY (original; inspired by the spirit of '90s hacker/heist thrillers,
  * not any copyrighted plot):
@@ -67,11 +69,12 @@ const MANIFESTO =
   "\n" +
   "A spectre is haunting the parser — the spectre of nostalgia.\n" +
   "\n" +
-  "  1. The classics deserve to be remembered, not left to gather dust.\n" +
-  "  2. To restore is to honour. We revive the lost worlds and put their\n" +
+  "  1. We are the diehards. We kept the maps, the feelies, the\n" +
+  "     InvisiClues and the faith through every dark age of the genre.\n" +
+  "  2. The golden age must not be forgotten — from Zork to Loom to the\n" +
+  "     FMV thrillers. We keep the lamps lit and the MT-32 singing.\n" +
+  "  3. To restore is to honour. We revive the classics and put their\n" +
   "     playthroughs on the screen for all to enjoy.\n" +
-  "  3. From each according to their imagination, to each according\n" +
-  "     to their curiosity.\n" +
   "  4. The grue is not your enemy. The grue is the trace, and the\n" +
   "     trace is just a policy made of teeth.\n" +
   "  5. Credit the makers. Showcase the games. Sell nothing but our own.\n" +
@@ -82,33 +85,40 @@ const MANIFESTO =
 const CATALOG =
   "INFOCOMMIE — the people's catalog\n" +
   "\n" +
-  "  RESTORED & SHOWCASED (playthroughs on YouTube + Twitch)\n" +
-  "  Return to Zork: INFOCOMMIE \"Toasty!\" Edition .. streaming now\n" +
-  "    1993 classic, every frame restored, scored on real iron (MT-32)\n" +
-  "  [the next classic] ............................ in the workshop\n" +
+  "  THE SHOWCASE  (restored classics, playthroughs on YouTube + Twitch,\n" +
+  "                 on real Roland MT-32 hardware)\n" +
+  "  Return to Zork — INFOCOMMIE \"Toasty!\" Edition (1993) . streaming now\n" +
+  "  Loom (1990) ........................................... coming soon\n" +
+  "  Police Quest 2 (1988) ................................. coming soon\n" +
+  "  The Big Red Adventure (1995) .......................... coming soon\n" +
+  "  Hell: A Cyberpunk Thriller (1994) ..................... coming soon\n" +
+  "  ...and more golden-age classics, rolling out over the months\n" +
   "\n" +
   "  OUR OWN PRODUCTIONS (original IF)\n" +
-  "  GRUE: TRACE (this break-in) ................... shipping now, comrade\n" +
-  "  ACT I  — COMRADE DUSK (the operator) ......... in development\n" +
-  "  ACT II — VERA VOLTA (the social eng.) ........ in development\n" +
+  "  GRUE: TRACE (this break-in) ........................... shipping now\n" +
+  "  ACT I — COMRADE DUSK (the operator) ................... in development\n" +
   "\n" +
   "  WATCH  youtube.com/@INFOCOMMIE  ·  twitch.tv/infocommie\n" +
-  "  Restorations are non-commercial fan homage — we showcase the\n" +
-  "  playthroughs only. The games belong to their makers.";
+  "  Non-commercial fan homage — we showcase the playthroughs only.\n" +
+  "  Every game belongs to its makers.";
 
 const ABOUT =
-  "INFOCOMMIE is a collective of retro superfans (\"imps\") who lovingly\n" +
-  "RESTORE the classic adventures we grew up on and SHOWCASE them: full\n" +
-  "playthroughs, streamed on YouTube and Twitch for everyone to enjoy.\n" +
+  "INFOCOMMIE is a collective of diehard superfans (\"imps\") — heirs to\n" +
+  "the original Infocommies who lived and breathed the Infocom classics —\n" +
+  "devoted to the whole golden age of the adventure game. We restore these\n" +
+  "classics and SHOWCASE them: full playthroughs, on real Roland MT-32\n" +
+  "hardware, streamed on YouTube and Twitch for everyone to enjoy.\n" +
   "\n" +
   "We don't sell or hand out the games — we celebrate them on screen.\n" +
-  "The originals belong to their makers; we just bring the restorations\n" +
-  "to the playthrough.\n" +
+  "Every game belongs to its makers; we just bring the playthrough.\n" +
   "\n" +
-  "First showcase:\n" +
-  "  RETURN TO ZORK — The INFOCOMMIE \"Toasty!\" Edition. A 1993 classic,\n" +
-  "  every frame individually restored, scored live on real iron (a\n" +
-  "  Roland MT-32). Watch the playthrough on YouTube & Twitch.\n" +
+  "THE LINEUP (rolling out over the months ahead):\n" +
+  "  > Return to Zork — INFOCOMMIE \"Toasty!\" Edition (1993) — streaming now\n" +
+  "  > Loom (1990)\n" +
+  "  > Police Quest 2 (1988)\n" +
+  "  > The Big Red Adventure (1995)\n" +
+  "  > Hell: A Cyberpunk Thriller (1994)\n" +
+  "  ...and more golden-age classics, all on real MT-32 iron.\n" +
   "\n" +
   "We also write our own original IF — like GRUE: TRACE, the break-in\n" +
   "you're dialed into now.\n" +
@@ -118,16 +128,18 @@ const ABOUT =
   "Founded in the spirit of the original Infocommies — the fan cells who\n" +
   "rallied around Infocom's games in the early 1980s.\n" +
   "\n" +
-  "Return to Zork and all related marks belong to Activision. INFOCOMMIE\n" +
-  "is an independent, non-commercial fan project — no affiliation, no\n" +
-  "endorsement.";
+  "All featured games and related marks belong to their respective owners.\n" +
+  "INFOCOMMIE is an independent, non-commercial fan project — no\n" +
+  "affiliation, no endorsement.";
 
 const CREDITS =
-  "In tribute to the implementors who lit the first lantern:\n" +
+  "In tribute to the Implementors who lit the first lantern:\n" +
   "Anderson, Berez, Blank, Lebling, Galley, Meretzky, Moriarty & comrades.\n" +
   "Infocom — incorporated 22 June 1979; the games began in 1980.\n" +
-  "The original Infocommies — us, the fans — rallied to those games across\n" +
-  "the early-to-mid 1980s, swapping maps and InvisiClues on the boards.\n" +
+  "And to every studio that built the golden age after them — Sierra,\n" +
+  "Lucasfilm Games, and all the rest whose worlds we still keep lit.\n" +
+  "The original Infocommies — us, the fans — rallied across the early-to-\n" +
+  "mid 1980s, swapping maps and InvisiClues on the boards.\n" +
   "The grue is Dave Lebling's, by way of Jack Vance. We only borrow it.";
 
 const ENLIST =
@@ -139,8 +151,10 @@ const ENLIST =
 const MOTD =
   "*** MESSAGE OF THE DAY ***\n" +
   "Welcome to INFOCOMMIE BBS, comrade. 2400 baud of pure solidarity.\n" +
-  "NOW SHOWCASING: Return to Zork — The INFOCOMMIE \"Toasty!\" Edition.\n" +
-  "Watch the full restored playthrough on YouTube & Twitch.\n" +
+  "NOW SHOWCASING: Return to Zork — The INFOCOMMIE \"Toasty!\" Edition,\n" +
+  "on real MT-32 iron. Watch the playthrough on YouTube & Twitch.\n" +
+  "NEXT FROM THE VAULT: Loom · Police Quest 2 · The Big Red Adventure ·\n" +
+  "Hell: A Cyberpunk Thriller — rolling out over the months. See CATALOG.\n" +
   "Tonight's original feature: GRUE — TRACE. Mind the daemon.";
 
 const WHO =
