@@ -1,11 +1,12 @@
 /*
  * INFOCOMMIE — the people's restoration collective & text-adventure engine.
  *
- * INFOCOMMIE is a collective of implementors ("imps") who LIBERATE the people's
- * lost classics from the corporate vaults and restore them to the masses —
- * starting with RETURN TO ZORK: The INFOCOMMIE "Toasty!" Edition — and who also
- * forge their own original interactive fiction. This terminal is one such
- * original production: GRUE — a break-in.
+ * INFOCOMMIE is a collective of retro superfans ("imps") who lovingly RESTORE
+ * the classic adventures they grew up on and SHOWCASE them as full playthroughs
+ * on YouTube and Twitch — starting with RETURN TO ZORK: The INFOCOMMIE "Toasty!"
+ * Edition — and who also forge their own original interactive fiction. This
+ * terminal is one such original production: GRUE — a break-in. We celebrate the
+ * classics; we don't distribute them — they belong to their makers.
  *
  * THE STORY (original; inspired by the spirit of '90s hacker/heist thrillers,
  * not any copyrighted plot):
@@ -64,17 +65,16 @@ export function newGame() {
 const MANIFESTO =
   "THE INFOCOMMIE MANIFESTO\n" +
   "\n" +
-  "A spectre is haunting the parser — the spectre of free information.\n" +
+  "A spectre is haunting the parser — the spectre of nostalgia.\n" +
   "\n" +
-  "  1. The classics belong to the people who love them, not to the\n" +
-  "     landlords who let them rot in the vault.\n" +
-  "  2. To restore is to resist. We rescue lost worlds, remaster them,\n" +
-  "     and return them — uncrippled — to the commons.\n" +
+  "  1. The classics deserve to be remembered, not left to gather dust.\n" +
+  "  2. To restore is to honour. We revive the lost worlds and put their\n" +
+  "     playthroughs on the screen for all to enjoy.\n" +
   "  3. From each according to their imagination, to each according\n" +
   "     to their curiosity.\n" +
   "  4. The grue is not your enemy. The grue is the trace, and the\n" +
   "     trace is just a policy made of teeth.\n" +
-  "  5. Property is theft. Root is the people's.\n" +
+  "  5. Credit the makers. Showcase the games. Sell nothing but our own.\n" +
   "  6. Workers of the world:  > _\n" +
   "\n" +
   "Seize the means of computation. Preserve what they would abandon.";
@@ -82,35 +82,45 @@ const MANIFESTO =
 const CATALOG =
   "INFOCOMMIE — the people's catalog\n" +
   "\n" +
-  "  LIBERATED FROM THE VAULTS (restorations)\n" +
-  "  Return to Zork: INFOCOMMIE \"Toasty!\" Edition .. liberated now\n" +
+  "  RESTORED & SHOWCASED (playthroughs on YouTube + Twitch)\n" +
+  "  Return to Zork: INFOCOMMIE \"Toasty!\" Edition .. streaming now\n" +
   "    1993 classic, every frame restored, scored on real iron (MT-32)\n" +
-  "  [the next classic] ............................ queued for rescue\n" +
+  "  [the next classic] ............................ in the workshop\n" +
   "\n" +
   "  OUR OWN PRODUCTIONS (original IF)\n" +
   "  GRUE: TRACE (this break-in) ................... shipping now, comrade\n" +
   "  ACT I  — COMRADE DUSK (the operator) ......... in development\n" +
   "  ACT II — VERA VOLTA (the social eng.) ........ in development\n" +
   "\n" +
-  "  Restorations are non-commercial homage; originals are ours, in the\n" +
-  "  commons. No landlords either way.";
+  "  WATCH  youtube.com/@INFOCOMMIE  ·  twitch.tv/infocommie\n" +
+  "  Restorations are non-commercial fan homage — we showcase the\n" +
+  "  playthroughs only. The games belong to their makers.";
 
 const ABOUT =
-  "INFOCOMMIE is a collective of implementors (\"imps\") who LIBERATE the\n" +
-  "people's lost classics — the great adventures left to rot in corporate\n" +
-  "vaults — and restore them to the masses: remastered, uncrippled, free\n" +
-  "to witness. No graphics downgrades, no microtransactions, no masters.\n" +
+  "INFOCOMMIE is a collective of retro superfans (\"imps\") who lovingly\n" +
+  "RESTORE the classic adventures we grew up on and SHOWCASE them: full\n" +
+  "playthroughs, streamed on YouTube and Twitch for everyone to enjoy.\n" +
   "\n" +
-  "First liberation from the vault:\n" +
+  "We don't sell or hand out the games — we celebrate them on screen.\n" +
+  "The originals belong to their makers; we just bring the restorations\n" +
+  "to the playthrough.\n" +
+  "\n" +
+  "First showcase:\n" +
   "  RETURN TO ZORK — The INFOCOMMIE \"Toasty!\" Edition. A 1993 classic,\n" +
   "  every frame individually restored, scored live on real iron (a\n" +
-  "  Roland MT-32). More classics are queued for rescue.\n" +
+  "  Roland MT-32). Watch the playthrough on YouTube & Twitch.\n" +
   "\n" +
-  "We also forge our own original IF — like GRUE: TRACE, the break-in\n" +
+  "We also write our own original IF — like GRUE: TRACE, the break-in\n" +
   "you're dialed into now.\n" +
   "\n" +
+  "  WATCH   youtube.com/@INFOCOMMIE  ·  twitch.tv/infocommie\n" +
+  "\n" +
   "Founded in the spirit of the original Infocommies — the fan cells who\n" +
-  "rallied around Infocom's games in the early 1980s.";
+  "rallied around Infocom's games in the early 1980s.\n" +
+  "\n" +
+  "Return to Zork and all related marks belong to Activision. INFOCOMMIE\n" +
+  "is an independent, non-commercial fan project — no affiliation, no\n" +
+  "endorsement.";
 
 const CREDITS =
   "In tribute to the implementors who lit the first lantern:\n" +
@@ -129,8 +139,8 @@ const ENLIST =
 const MOTD =
   "*** MESSAGE OF THE DAY ***\n" +
   "Welcome to INFOCOMMIE BBS, comrade. 2400 baud of pure solidarity.\n" +
-  "FRESH FROM THE VAULT: Return to Zork — The INFOCOMMIE \"Toasty!\"\n" +
-  "Edition. A 1993 classic, liberated and restored. See CATALOG.\n" +
+  "NOW SHOWCASING: Return to Zork — The INFOCOMMIE \"Toasty!\" Edition.\n" +
+  "Watch the full restored playthrough on YouTube & Twitch.\n" +
   "Tonight's original feature: GRUE — TRACE. Mind the daemon.";
 
 const WHO =
@@ -142,13 +152,16 @@ const WHO =
 
 const FREENET =
   "THE FREE NET\n" +
-  "INFOCOMMIE is open source and released into the commons.\n" +
+  "Where to find the collective:\n" +
   "\n" +
+  "  watch .... youtube.com/@INFOCOMMIE\n" +
+  "  stream ... twitch.tv/infocommie\n" +
   "  source ... github.com/J-O-H-N-P-A-U-L/INFOCOMMIE\n" +
   "  comms .... comrade@infocommie.com\n" +
   "  board .... infocommie.com\n" +
   "\n" +
-  "No DRM. No landlords. Fork freely, comrade.";
+  "Our own code is open source. The classics we showcase belong to their\n" +
+  "makers — we stream the playthroughs, nothing more. Fork freely, comrade.";
 
 // Page text exposed to the BBS main-menu screen.
 export const PAGES = {
@@ -244,7 +257,7 @@ function ruleEngine(raw, state) {
   // Once you've won, bask.
   if (state.won) {
     return {
-      reply: "The job is done and THE LIST is the people's. Type RESTART to run it again, or CATALOG to see what the collective is liberating.",
+      reply: "The job is done and THE LIST is the people's. Type RESTART to run it again, or CATALOG to see what the collective is restoring.",
       state,
       sound: "type",
     };

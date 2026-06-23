@@ -15,32 +15,35 @@ profitable, independent label.*
   - Bootstrapped, solo-or-tiny team, no outside investors.
   - Web-first. The browser terminal is the storefront and the funnel.
   - The agitprop voice is the brand and stays.
-  - **Restoration-first.** We are known for *liberating and remastering lost
-    classics* (Return to Zork: The INFOCOMMIE "Toasty!" Edition first, more to
-    follow). The restorations are the heart — and they stay **non-commercial /
-    homage**. Original IF + merch + membership are what we actually sell.
-- **One-line thesis:** *Lovingly restored classics, freed from the vault and
-  given away, pull the people in; our own original stories, a membership
-  "collective," and highly merchable propaganda art turn that attention into
-  money. The restorations earn trust and reach; the originals pay the rent.*
+  - **Restoration-first.** We are known for *restoring lost classics and
+    showcasing the playthroughs* on YouTube/Twitch (Return to Zork: The
+    INFOCOMMIE "Toasty!" Edition first, more to follow). The restorations are
+    the heart — **non-commercial fan homage, showcase-only** (we don't
+    distribute the games). Original IF + merch + membership are what we sell.
+- **One-line thesis:** *Lovingly restored classics, shown off as playthroughs,
+  pull the people in; our own original stories, a membership "collective," and
+  highly merchable propaganda art turn that attention into money. The
+  restorations earn trust and reach; the originals pay the rent.*
 
 ---
 
 ## 1. The Business Manifesto
 
 We are a **restoration collective and interactive-fiction studio** — we
-liberate the people's lost classics from the corporate vaults, lovingly
-remaster them, and give them back to the masses; and we forge our own original
-text adventures for a generation raised on chat interfaces. The whole world is
-talking to text boxes now. We make the text box *worth* talking to — and we
-make sure the great ones aren't left to rot behind a licensing desk.
+lovingly restore the classic adventures we grew up on and showcase the
+playthroughs on YouTube/Twitch; and we forge our own original text adventures
+for a generation raised on chat interfaces. The whole world is talking to text
+boxes now. We make the text box *worth* talking to — and we make sure the great
+ones aren't forgotten. (We celebrate the classics on screen; we don't
+distribute them — they belong to their makers.)
 
 Six operating principles (on-brand, but they're also just good business):
 
 1. **Two tracks, one conscience.** *Restorations* are non-commercial homage —
-   we liberate and remaster lost classics and give them away, never sell them.
-   *Originals* are IP we own outright and are free to monetize. Keep the two
-   tracks clean and never blur them (don't sell, gate, or merch a restoration).
+   we restore lost classics and showcase the playthroughs (YouTube/Twitch),
+   never distribute or sell the games. *Originals* are IP we own outright and
+   are free to monetize. Keep the two tracks clean and never blur them (don't
+   sell, gate, or merch a restoration).
 2. **The funnel is free; the deluxe is paid.** Free browser games are marketing.
    Premium episodes, collections, and merch are revenue.
 3. **Own the whole stack.** Our engine, our domain, our mailing list, our art.
