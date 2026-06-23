@@ -263,6 +263,16 @@ svg {
   max-width: 70ch;
   text-shadow: 0 0 1px rgba(216, 216, 216, 0.5);
 }
+.page-body a {
+  color: #46d96a;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.page-body a:hover,
+.page-body a:focus {
+  color: #7ef39a;
+  background: rgba(70, 217, 106, 0.12);
+}
 .page-foot {
   margin-top: 2em;
   font-family: var(--pixel);

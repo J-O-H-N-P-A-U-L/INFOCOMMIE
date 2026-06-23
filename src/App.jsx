@@ -155,11 +155,38 @@ function Menu({ onSelect }) {
 }
 
 /* ── A static content page (manifesto, catalog, etc.) ───────────────── */
+// Turn the channel URLs in page text into real clickable links (open in a new
+// tab, straight to the channel). Everything else renders as plain <pre> text.
+const LINK_SPLIT = /((?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/@INFOCOMMIE|twitch\.tv\/infocommie))/gi;
+const LINK_TEST = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/@INFOCOMMIE|twitch\.tv\/infocommie)$/i;
+
+function linkify(text) {
+  return text.split(LINK_SPLIT).map((part, i) => {
+    if (LINK_TEST.test(part)) {
+      const href = /youtube/i.test(part)
+        ? "https://www.youtube.com/@INFOCOMMIE"
+        : "https://www.twitch.tv/infocommie";
+      return (
+        <a
+          key={i}
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {part}
+        </a>
+      );
+    }
+    return part;
+  });
+}
+
 function Page({ pageKey, onBack }) {
   const text = PAGES[pageKey] || "404 — the collective is still drafting this.";
   return (
     <div className="page" onClick={onBack}>
-      <pre className="page-body">{text}</pre>
+      <pre className="page-body">{linkify(text)}</pre>
       <div className="page-foot">— press 0 or ESC to return to the main menu —</div>
     </div>
   );

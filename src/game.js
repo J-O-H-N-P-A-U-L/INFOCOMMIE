@@ -169,12 +169,11 @@ const FREENET =
   "\n" +
   "  watch .... youtube.com/@INFOCOMMIE\n" +
   "  stream ... twitch.tv/infocommie\n" +
-  "  source ... github.com/J-O-H-N-P-A-U-L/INFOCOMMIE\n" +
   "  comms .... comrade@infocommie.com\n" +
   "  board .... infocommie.com\n" +
   "\n" +
-  "Our own code is open source. The classics we showcase belong to their\n" +
-  "makers — we stream the playthroughs, nothing more. Fork freely, comrade.";
+  "The classics we showcase belong to their makers — we stream the\n" +
+  "playthroughs, nothing more. Solidarity, comrade.";
 
 // Page text exposed to the BBS main-menu screen.
 export const PAGES = {
