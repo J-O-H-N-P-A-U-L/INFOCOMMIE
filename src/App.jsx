@@ -4,6 +4,7 @@ import { play, setMuted } from "./sound.js";
 import { useAuth } from "./useAuth.js";
 import Enlist from "./Enlist.jsx";
 import Forum from "./Forum.jsx";
+import Wordmark from "./Wordmark.jsx";
 
 /* ── Pixel icons (crisp-edged inline SVG) ───────────────────────────── */
 function Icon({ name }) {
@@ -82,9 +83,7 @@ function Menu({ onSelect, handle }) {
   return (
     <div className="menu">
       <div className="logo">
-        <span className="logo-a">INFO</span>
-        <span className="logo-b">COMMIE</span>
-        <span className="logo-dot">.com</span>
+        <Wordmark className="logo-mark" />
       </div>
 
       {handle && <div className="menu-whoami">● logged in as {handle}</div>}
