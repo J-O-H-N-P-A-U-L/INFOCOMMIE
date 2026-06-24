@@ -1,12 +1,15 @@
 import { useState, useEffect, useCallback } from "react";
 import { supabase, isConfigured } from "./supabase.js";
+import { getProfile } from "./profiles.js";
 
-// Subscribes to Supabase auth and resolves the signed-in comrade's handle from
-// the `profiles` table. Returns { session, handle, loading } plus a signOut().
+// Subscribes to Supabase auth and resolves the signed-in comrade's profile
+// (handle + avatar) from the `profiles` table. Returns { session, handle,
+// profile, loading } plus signOut() and refreshProfile().
 export function useAuth() {
   const [session, setSession] = useState(null);
-  const [handle, setHandle] = useState(null);
+  const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(isConfigured);
+  const handle = profile?.handle ?? null;
 
   useEffect(() => {
     if (!isConfigured) return;
@@ -26,20 +29,23 @@ export function useAuth() {
     };
   }, []);
 
-  useEffect(() => {
+  const refreshProfile = useCallback(async () => {
     if (!session?.user) {
-      setHandle(null);
+      setProfile(null);
       return;
     }
+    setProfile(await getProfile(session.user.id));
+  }, [session]);
+
+  useEffect(() => {
     let alive = true;
-    supabase
-      .from("profiles")
-      .select("handle")
-      .eq("id", session.user.id)
-      .maybeSingle()
-      .then(({ data }) => {
-        if (alive) setHandle(data?.handle ?? null);
-      });
+    if (!session?.user) {
+      setProfile(null);
+      return;
+    }
+    getProfile(session.user.id).then((p) => {
+      if (alive) setProfile(p);
+    });
     return () => {
       alive = false;
     };
@@ -49,5 +55,5 @@ export function useAuth() {
     if (isConfigured) await supabase.auth.signOut();
   }, []);
 
-  return { session, handle, loading, signOut };
+  return { session, handle, profile, loading, signOut, refreshProfile };
 }

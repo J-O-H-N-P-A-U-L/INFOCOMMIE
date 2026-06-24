@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { supabase, isConfigured } from "./supabase.js";
+import { Avatar } from "./avatar.jsx";
+import { uploadAvatar, shuffleBadge } from "./avatarStore.js";
 
 const HANDLE_RE = /^[a-z0-9._]{3,24}$/i;
 
@@ -7,11 +9,43 @@ const HANDLE_RE = /^[a-z0-9._]{3,24}$/i;
    On register we create the auth user, then write a row into `profiles`
    holding the chosen handle (used to sign forum posts). */
 export default function Enlist({ auth, onBack }) {
-  const { session, handle, signOut } = auth;
+  const { session, handle, profile, signOut, refreshProfile } = auth;
   const [mode, setMode] = useState("register"); // "register" | "login"
   const [form, setForm] = useState({ handle: "", email: "", password: "" });
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState(null); // { kind: "err"|"ok", text }
+  const [avBusy, setAvBusy] = useState(false);
+  const [avErr, setAvErr] = useState(null);
+  const fileRef = useRef(null);
+
+  async function onPickFile(e) {
+    const file = e.target.files?.[0];
+    e.target.value = "";
+    if (!file) return;
+    setAvErr(null);
+    setAvBusy(true);
+    try {
+      await uploadAvatar(session.user.id, file);
+      await refreshProfile();
+    } catch (err) {
+      setAvErr(err.message || "Upload failed (has the avatars bucket been set up?).");
+    } finally {
+      setAvBusy(false);
+    }
+  }
+
+  async function onShuffle() {
+    setAvErr(null);
+    setAvBusy(true);
+    try {
+      await shuffleBadge(session.user.id, profile?.avatar_seed);
+      await refreshProfile();
+    } catch (err) {
+      setAvErr(err.message || "Could not re-roll badge.");
+    } finally {
+      setAvBusy(false);
+    }
+  }
 
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
 
@@ -94,10 +128,41 @@ export default function Enlist({ auth, onBack }) {
     return (
       <div className="board">
         <h1 className="board-title">ENLISTED</h1>
-        <p className="board-note">
-          You are signed in as <b>{handle || session.user.email}</b>. The FORUM
-          is open to you, comrade. There are no dues — only solidarity.
-        </p>
+
+        <div className="avatar-panel">
+          <Avatar
+            className="avatar-lg"
+            url={profile?.avatar_url}
+            seed={handle || session.user.email}
+            avatarSeed={profile?.avatar_seed}
+            alt="your badge"
+          />
+          <div className="avatar-ctrls">
+            <p className="board-note">
+              Signed in as <b>{handle || session.user.email}</b>. This is your
+              badge — every comrade gets a generated one. Upload your own, or
+              re-roll the random soviet/gamer style.
+            </p>
+            <div className="board-actions">
+              <button className="bbs-btn" disabled={avBusy} onClick={() => fileRef.current?.click()}>
+                {avBusy ? "…WORKING" : "UPLOAD PIC"}
+              </button>
+              <button className="bbs-btn alt" disabled={avBusy} onClick={onShuffle}>
+                SHUFFLE BADGE
+              </button>
+              <input
+                ref={fileRef}
+                type="file"
+                accept="image/*"
+                onChange={onPickFile}
+                style={{ display: "none" }}
+              />
+            </div>
+            {avErr && <div className="board-note err">{avErr}</div>}
+          </div>
+        </div>
+
+        <p className="board-note">The FORUM (menu F) is open to you. No dues — only solidarity.</p>
         <div className="board-actions">
           <button className="bbs-btn" onClick={signOut}>LOG OUT</button>
           <button className="bbs-btn alt" onClick={onBack}>◄ MENU</button>

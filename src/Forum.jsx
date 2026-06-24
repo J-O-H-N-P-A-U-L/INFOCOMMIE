@@ -1,5 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { supabase, isConfigured } from "./supabase.js";
+import { Avatar } from "./avatar.jsx";
+import { getProfileMap } from "./profiles.js";
 
 /* ECHOMAIL — a real, shared message board backed by Supabase.
    Anyone may read; only enlisted comrades may post (enforced by RLS).
@@ -22,6 +24,30 @@ export default function Forum({ auth, onBack }) {
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState(null);
   const [busy, setBusy] = useState(false);
+  const [people, setPeople] = useState({}); // author_id -> profile (avatar/handle)
+
+  // Merge any author profiles we don't yet have, so avatars render.
+  const ensurePeople = useCallback(async (ids) => {
+    const missing = ids.filter((id) => id && !people[id]);
+    if (!missing.length) return;
+    const map = await getProfileMap(missing);
+    setPeople((prev) => ({ ...prev, ...map }));
+  }, [people]);
+
+  // Render an avatar for a forum row, preferring the live profile (which may
+  // carry an uploaded pic) and falling back to the row's denormalised handle.
+  const rowAvatar = (row, className) => {
+    const p = people[row.author_id];
+    return (
+      <Avatar
+        className={className}
+        url={p?.avatar_url}
+        seed={p?.handle || row.author_handle}
+        avatarSeed={p?.avatar_seed}
+        alt=""
+      />
+    );
+  };
 
   // New-thread + reply drafts
   const [newTitle, setNewTitle] = useState("");
@@ -35,9 +61,12 @@ export default function Forum({ auth, onBack }) {
       .order("created_at", { ascending: false })
       .limit(100);
     if (error) setErr(error.message);
-    else setThreads(data || []);
+    else {
+      setThreads(data || []);
+      ensurePeople((data || []).map((t) => t.author_id));
+    }
     setLoading(false);
-  }, []);
+  }, [ensurePeople]);
 
   const openThread = useCallback(async (thread) => {
     setActive(thread);
@@ -49,8 +78,11 @@ export default function Forum({ auth, onBack }) {
       .eq("thread_id", thread.id)
       .order("created_at", { ascending: true });
     if (error) setErr(error.message);
-    else setPosts(data || []);
-  }, []);
+    else {
+      setPosts(data || []);
+      ensurePeople((data || []).map((p) => p.author_id));
+    }
+  }, [ensurePeople]);
 
   useEffect(() => {
     if (isConfigured) loadThreads();
@@ -125,7 +157,10 @@ export default function Forum({ auth, onBack }) {
           {posts.map((p) => (
             <article key={p.id} className="post">
               <header className="post-head">
-                <span className="post-author">{p.author_handle || "anon"}</span>
+                <span className="post-who">
+                  {rowAvatar(p, "avatar-sm")}
+                  <span className="post-author">{p.author_handle || "anon"}</span>
+                </span>
                 <span className="post-date">{fmt(p.created_at)}</span>
               </header>
               <pre className="post-body">{p.body}</pre>
@@ -169,6 +204,7 @@ export default function Forum({ auth, onBack }) {
         {threads.map((t) => (
           <li key={t.id}>
             <button className="thread-row" onClick={() => openThread(t)}>
+              {rowAvatar(t, "avatar-sm")}
               <span className="thread-title">{t.title}</span>
               <span className="thread-meta">{t.author_handle || "anon"} · {fmt(t.created_at)}</span>
             </button>

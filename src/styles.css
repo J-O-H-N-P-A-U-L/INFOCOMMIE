@@ -613,6 +613,7 @@ svg {
 .thread-title {
   font-size: clamp(18px, 2.3vw, 26px);
   color: var(--green);
+  flex: 1 1 auto;
 }
 .thread-meta {
   font-family: var(--pixel);
@@ -654,4 +655,45 @@ svg {
   color: var(--fg);
   white-space: pre-wrap;
   word-break: break-word;
+}
+
+/* avatars */
+.avatar {
+  image-rendering: pixelated;
+  display: block;
+  border: 1px solid #2a5a2a;
+  background: #000;
+  object-fit: cover;
+  flex: none;
+}
+.avatar-sm {
+  width: 1.6em;
+  height: 1.6em;
+}
+.avatar-lg {
+  width: clamp(64px, 12vw, 104px);
+  height: clamp(64px, 12vw, 104px);
+  border-color: var(--green);
+}
+.avatar-panel {
+  display: flex;
+  gap: 1.2em;
+  align-items: flex-start;
+  margin: 1em 0 1.6em;
+  flex-wrap: wrap;
+}
+.avatar-ctrls {
+  flex: 1 1 22ch;
+  min-width: 22ch;
+}
+.avatar-ctrls .board-note {
+  margin-top: 0;
+}
+.post-who {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+.thread-row .avatar-sm {
+  align-self: center;
 }

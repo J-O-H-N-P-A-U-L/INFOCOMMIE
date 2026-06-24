@@ -6,10 +6,13 @@
 
 -- ── profiles: one row per enlisted comrade, holds the public handle ──────────
 create table if not exists public.profiles (
-  id         uuid primary key references auth.users (id) on delete cascade,
-  handle     text unique not null check (handle ~ '^[A-Za-z0-9._]{3,24}$'),
-  created_at timestamptz not null default now()
+  id          uuid primary key references auth.users (id) on delete cascade,
+  handle      text unique not null check (handle ~ '^[A-Za-z0-9._]{3,24}$'),
+  avatar_url  text,                      -- uploaded picture; null = generated badge
+  avatar_seed integer not null default 0, -- re-roll counter for the generated badge
+  created_at  timestamptz not null default now()
 );
+-- For uploaded avatars + the storage bucket, also run supabase/avatars.sql.
 
 alter table public.profiles enable row level security;
 
