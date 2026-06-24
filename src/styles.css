@@ -66,16 +66,19 @@ svg {
 
 .logo {
   font-family: var(--pixel);
+  font-size: clamp(20px, 5.2vw, 54px);
+  letter-spacing: 0.04em;
   line-height: 1;
   text-align: center;
 }
-.logo-mark {
-  display: inline-block;
-  vertical-align: middle;
-  width: clamp(220px, 60vw, 560px);
-  height: auto;
-  color: #f0f0f0;
-  overflow: visible;
+.logo-a {
+  background: #e8e8e8;
+  color: #000;
+  padding: 0.12em 0.16em;
+}
+.logo-b {
+  color: #fff;
+  padding: 0.12em 0.06em;
 }
 
 .menu-body {
