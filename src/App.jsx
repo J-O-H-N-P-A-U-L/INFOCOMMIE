@@ -84,6 +84,7 @@ function Menu({ onSelect, handle }) {
       <div className="logo">
         <span className="logo-a">INFO</span>
         <span className="logo-b">COMMIE</span>
+        <span className="logo-cursor" aria-hidden="true" />
       </div>
 
       {handle && <div className="menu-whoami">● logged in as {handle}</div>}

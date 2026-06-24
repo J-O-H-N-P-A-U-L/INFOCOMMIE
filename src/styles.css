@@ -80,6 +80,15 @@ svg {
   color: #fff;
   padding: 0.12em 0.06em;
 }
+.logo-cursor {
+  display: inline-block;
+  width: 0.7em;
+  height: 0.9em;
+  margin-left: 0.18em;
+  background: var(--cyan);
+  vertical-align: baseline;
+  animation: blink 1.05s steps(1) infinite;
+}
 
 .menu-body {
   display: flex;
