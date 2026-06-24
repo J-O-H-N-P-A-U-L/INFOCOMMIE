@@ -1,6 +1,9 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { INTRO, BRAND, PAGES, newGame, respond } from "./game.js";
 import { play, setMuted } from "./sound.js";
+import { useAuth } from "./useAuth.js";
+import Enlist from "./Enlist.jsx";
+import Forum from "./Forum.jsx";
 
 /* ── Pixel icons (crisp-edged inline SVG) ───────────────────────────── */
 function Icon({ name }) {
@@ -62,7 +65,8 @@ const TOP = [
   { n: "4", cap: "Files", title: "Catalog", icon: "arrow", page: "catalog" },
 ];
 const BOARD = [
-  { n: "5", title: "Enlist", page: "enlist" },
+  { n: "5", title: "Enlist", action: "enlist" },
+  { n: "F", title: "Forum", action: "forum" },
   { n: "6", title: "Who's Online", page: "who" },
   { n: "7", title: "Free Net", page: "freenet" },
 ];
@@ -74,7 +78,7 @@ const MISC = [
 const ALL = [...TOP, ...BOARD, ...MISC];
 
 /* ── Main BBS menu screen (RetroCampus-style) ───────────────────────── */
-function Menu({ onSelect }) {
+function Menu({ onSelect, handle }) {
   return (
     <div className="menu">
       <div className="logo">
@@ -82,6 +86,8 @@ function Menu({ onSelect }) {
         <span className="logo-b">COMMIE</span>
         <span className="logo-dot">.com</span>
       </div>
+
+      {handle && <div className="menu-whoami">● logged in as {handle}</div>}
 
       <div className="menu-body">
         <div className="bbs-side" aria-hidden="true">
@@ -353,6 +359,7 @@ function Terminal({ onExit, muted, onToggleMute }) {
 export default function App() {
   const [view, setView] = useState({ type: "menu" });
   const [muted, setMutedState] = useState(false);
+  const auth = useAuth();
 
   const toMenu = useCallback(() => setView({ type: "menu" }), []);
 
@@ -360,6 +367,8 @@ export default function App() {
     play("enter");
     if (item.action === "game") setView({ type: "game" });
     else if (item.action === "logoff") setView({ type: "logoff" });
+    else if (item.action === "enlist") setView({ type: "enlist" });
+    else if (item.action === "forum") setView({ type: "forum" });
     else setView({ type: "page", key: item.page });
   }, []);
 
@@ -378,8 +387,8 @@ export default function App() {
         if (view.type !== "menu") toMenu();
         return;
       }
-      if (view.type === "menu" && /^[0-9]$/.test(e.key)) {
-        const item = ALL.find((i) => i.n === e.key);
+      if (view.type === "menu" && e.key.length === 1) {
+        const item = ALL.find((i) => i.n === e.key.toUpperCase());
         if (item) handleSelect(item);
       } else if ((view.type === "page" || view.type === "logoff") && e.key === "0") {
         toMenu();
@@ -391,7 +400,9 @@ export default function App() {
 
   if (view.type === "game")
     return <Terminal key="game" onExit={toMenu} muted={muted} onToggleMute={toggleMute} />;
+  if (view.type === "enlist") return <Enlist auth={auth} onBack={toMenu} />;
+  if (view.type === "forum") return <Forum auth={auth} onBack={toMenu} />;
   if (view.type === "page") return <Page pageKey={view.key} onBack={toMenu} />;
   if (view.type === "logoff") return <LogOff onBack={toMenu} />;
-  return <Menu onSelect={handleSelect} />;
+  return <Menu onSelect={handleSelect} handle={auth.handle} />;
 }

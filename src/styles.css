@@ -450,3 +450,208 @@ svg {
     flex-direction: column;
   }
 }
+
+/* ════════════════ BOARD: ENLIST + FORUM (echomail) ════════════════ */
+.menu-whoami {
+  text-align: center;
+  font-family: var(--pixel);
+  font-size: clamp(7px, 1vw, 11px);
+  color: var(--green);
+  margin: -1.2em 0 1.4em;
+}
+
+.board {
+  min-height: 100vh;
+  padding: 5vh 6vw 8vh;
+  max-width: 80ch;
+  margin: 0 auto;
+  font-family: var(--font);
+  color: var(--fg);
+}
+.board-title {
+  font-family: var(--pixel);
+  font-size: clamp(14px, 3vw, 26px);
+  color: var(--red);
+  letter-spacing: 0.06em;
+  margin-bottom: 0.6em;
+}
+.board-sub {
+  font-family: var(--pixel);
+  font-size: clamp(10px, 1.6vw, 15px);
+  color: var(--cyan);
+  margin: 1.4em 0 0.6em;
+}
+.board-bar {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  flex-wrap: wrap;
+  margin-bottom: 0.4em;
+}
+.board-bar .board-title {
+  margin-bottom: 0;
+}
+.board-crumb {
+  font-family: var(--pixel);
+  font-size: clamp(8px, 1.2vw, 13px);
+  color: var(--yellow);
+}
+.board-note {
+  font-size: clamp(17px, 2.3vw, 26px);
+  line-height: 1.25;
+  color: var(--fg);
+  margin: 0.6em 0;
+  max-width: 64ch;
+}
+.board-note.err {
+  color: var(--death);
+}
+.board-note.ok {
+  color: var(--win);
+}
+
+/* forms (shared by enlist + forum) */
+.bbs-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9em;
+  margin: 1.4em 0;
+  max-width: 48ch;
+}
+.bbs-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
+}
+.bbs-form label span {
+  font-family: var(--pixel);
+  font-size: clamp(8px, 1.1vw, 12px);
+  color: var(--cyan);
+  letter-spacing: 0.05em;
+}
+.bbs-form input,
+.bbs-form textarea {
+  font-family: var(--font);
+  font-size: clamp(18px, 2.2vw, 24px);
+  color: var(--green);
+  background: #060a06;
+  border: 1px solid #2a5a2a;
+  padding: 0.35em 0.5em;
+  outline: none;
+  caret-color: var(--green);
+  resize: vertical;
+}
+.bbs-form input:focus,
+.bbs-form textarea:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 6px rgba(116, 215, 122, 0.35);
+}
+.bbs-form input::placeholder,
+.bbs-form textarea::placeholder {
+  color: #3f6b3f;
+}
+
+.board-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8em;
+  align-items: center;
+  margin-top: 0.4em;
+}
+.bbs-btn {
+  font-family: var(--pixel);
+  font-size: clamp(8px, 1.2vw, 13px);
+  color: #000;
+  background: var(--green);
+  border: none;
+  padding: 0.7em 1em;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+}
+.bbs-btn:hover {
+  background: #fff;
+}
+.bbs-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.bbs-btn.alt {
+  background: transparent;
+  color: var(--cyan);
+  border: 1px solid #2a5a5a;
+}
+.bbs-btn.alt:hover {
+  color: #fff;
+  border-color: var(--cyan);
+  background: transparent;
+}
+
+/* thread list */
+.thread-list {
+  list-style: none;
+  margin: 1em 0;
+  border-top: 1px solid #1e3a1e;
+}
+.thread-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1em;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #1e3a1e;
+  padding: 0.7em 0.2em;
+  cursor: pointer;
+  font-family: var(--font);
+  color: var(--fg);
+  flex-wrap: wrap;
+}
+.thread-row:hover {
+  background: rgba(116, 215, 122, 0.08);
+}
+.thread-title {
+  font-size: clamp(18px, 2.3vw, 26px);
+  color: var(--green);
+}
+.thread-meta {
+  font-family: var(--pixel);
+  font-size: clamp(7px, 1vw, 11px);
+  color: var(--dim);
+  white-space: nowrap;
+}
+
+/* posts */
+.forum-posts {
+  margin: 1em 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+.post {
+  border-left: 2px solid #2a5a2a;
+  padding: 0.3em 0 0.3em 0.8em;
+}
+.post-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1em;
+  font-family: var(--pixel);
+  font-size: clamp(7px, 1vw, 11px);
+  margin-bottom: 0.3em;
+  flex-wrap: wrap;
+}
+.post-author {
+  color: var(--yellow);
+}
+.post-date {
+  color: var(--dim);
+}
+.post-body {
+  font-family: var(--font);
+  font-size: clamp(17px, 2.2vw, 24px);
+  line-height: 1.25;
+  color: var(--fg);
+  white-space: pre-wrap;
+  word-break: break-word;
+}

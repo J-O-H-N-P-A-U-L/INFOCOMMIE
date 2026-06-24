@@ -41,3 +41,26 @@ npm install
 npm run dev      # http://localhost:5173
 npm run build    # production bundle in dist/
 ```
+
+## Accounts + Forum (Supabase)
+
+**ENLIST** (menu 5) is real email/passphrase signup and **FORUM** (menu F) is a
+shared message board (ECHOMAIL), both backed by [Supabase](https://supabase.com).
+Anyone may read the board; only enlisted comrades may post (enforced by Row
+Level Security). Without keys configured, both screens degrade to an "offline"
+notice and the rest of the BBS works unchanged.
+
+**One-time setup:**
+
+1. Create a free Supabase project.
+2. In the SQL editor, run [`supabase/schema.sql`](supabase/schema.sql) (creates
+   `profiles` / `threads` / `posts` tables + RLS policies).
+3. *(Optional, for instant signup)* Dashboard → Authentication → Providers →
+   Email → turn **off** "Confirm email". Leave it on and new comrades must click
+   a confirmation link before logging in.
+4. Local dev: `cp .env.example .env.local` and fill in `VITE_SUPABASE_URL` +
+   `VITE_SUPABASE_ANON_KEY` (Project Settings → API).
+5. Production: add those same two as **GitHub Actions secrets** (repo Settings →
+   Secrets and variables → Actions). The deploy workflow inlines them at build.
+
+The anon key is meant to be public — RLS, not key secrecy, protects the data.
