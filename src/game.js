@@ -98,7 +98,7 @@ const CATALOG =
   "  SPY GAME (this break-in) ........................... shipping now\n" +
   "  ACT I — COMRADE DUSK (the operator) ................... in development\n" +
   "\n" +
-  "  WATCH  youtube.com/@COMRADEINFOCOMMIE  ·  twitch.tv/comradeinfocommie\n" +
+  "  WATCH  youtube.com/@INFOCOMMIE  ·  twitch.tv/infocommie\n" +
   "  Non-commercial fan homage — we showcase the playthroughs only.\n" +
   "  Every game belongs to its makers.";
 
@@ -123,7 +123,7 @@ const ABOUT =
   "We also write our own original IF — like SPY GAME, the break-in\n" +
   "you're dialed into now.\n" +
   "\n" +
-  "  WATCH   youtube.com/@COMRADEINFOCOMMIE  ·  twitch.tv/comradeinfocommie\n" +
+  "  WATCH   youtube.com/@INFOCOMMIE  ·  twitch.tv/infocommie\n" +
   "\n" +
   "Founded in the spirit of the original Infocommies — the fan cells who\n" +
   "rallied around Infocom's games in the early 1980s.\n" +
@@ -144,8 +144,8 @@ const CREDITS =
 const ENLIST =
   "ENLIST IN THE COLLECTIVE\n" +
   "There are no dues. There is only solidarity (and the occasional\n" +
-  "dispatch). Follow the collective on YouTube and Twitch and fall in\n" +
-  "with your fellow imps. Workers of the world, subscribe.";
+  "dispatch). Transmit your intentions to cybermania94@hotmail.com and a\n" +
+  "fellow imp will receive you. Workers of the world, subscribe.";
 
 const MOTD =
   "*** MESSAGE OF THE DAY ***\n" +
@@ -167,8 +167,9 @@ const FREENET =
   "THE FREE NET\n" +
   "Where to find the collective:\n" +
   "\n" +
-  "  watch .... youtube.com/@COMRADEINFOCOMMIE\n" +
-  "  stream ... twitch.tv/comradeinfocommie\n" +
+  "  watch .... youtube.com/@INFOCOMMIE\n" +
+  "  stream ... twitch.tv/infocommie\n" +
+  "  comms .... cybermania94@hotmail.com\n" +
   "  board .... infocommie.com\n" +
   "\n" +
   "The classics we showcase belong to their makers — we stream the\n" +
