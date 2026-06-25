@@ -11,7 +11,8 @@ const HANDLE_RE = /^[a-z0-9._]{3,24}$/i;
 export default function Enlist({ auth, onBack }) {
   const { session, handle, profile, signOut, refreshProfile } = auth;
   const [mode, setMode] = useState("register"); // "register" | "login"
-  const [form, setForm] = useState({ handle: "", email: "", password: "" });
+  const [form, setForm] = useState({ handle: "", email: "", password: "", code: "" });
+  const [awaitingCode, setAwaitingCode] = useState(false);
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState(null); // { kind: "err"|"ok", text }
   const [avBusy, setAvBusy] = useState(false);
@@ -73,18 +74,22 @@ export default function Enlist({ auth, onBack }) {
         if (error) throw error;
 
         // If email confirmation is OFF, we get a session immediately and can
-        // write the profile now. If it's ON, the row is written on first login.
+        // write the profile now. If it's ON, Supabase emails a 6-digit code and
+        // we switch to the confirm step (see verifyCode). We use an OTP *code*
+        // rather than a magic link because Outlook/Hotmail "Safe Links" pre-fetch
+        // and consume single-use links, producing otp_expired before the user
+        // even clicks. A typed code can't be consumed by a scanner.
         if (data.session && data.user) {
           await supabase
             .from("profiles")
             .upsert({ id: data.user.id, handle: form.handle.trim() });
           setMsg({ kind: "ok", text: "Welcome to the collective, comrade." });
         } else {
+          setAwaitingCode(true);
           setMsg({
             kind: "ok",
-            text: "Check your inbox to confirm, then LOG IN below.",
+            text: "A 6-digit code was transmitted to your email. Enter it below.",
           });
-          setMode("login");
         }
       } else {
         const { data, error } = await supabase.auth.signInWithPassword({
@@ -105,6 +110,55 @@ export default function Enlist({ auth, onBack }) {
       }
     } catch (err) {
       setMsg({ kind: "err", text: err.message || "Transmission failed." });
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  // Confirm a freshly-registered account with the 6-digit code from the email.
+  // A successful verify establishes a session (useAuth picks it up and flips us
+  // into the ENLISTED view), so we just need to write the profile row.
+  async function verifyCode(e) {
+    e.preventDefault();
+    setMsg(null);
+    const token = form.code.trim();
+    if (!/^\d{6}$/.test(token)) {
+      setMsg({ kind: "err", text: "Code is 6 digits." });
+      return;
+    }
+    setBusy(true);
+    try {
+      const { data, error } = await supabase.auth.verifyOtp({
+        email: form.email.trim(),
+        token,
+        type: "signup",
+      });
+      if (error) throw error;
+      if (data.user) {
+        await supabase
+          .from("profiles")
+          .upsert({ id: data.user.id, handle: form.handle.trim() });
+      }
+      setMsg({ kind: "ok", text: "Welcome to the collective, comrade." });
+    } catch (err) {
+      setMsg({ kind: "err", text: err.message || "Invalid or expired code." });
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function resendCode() {
+    setMsg(null);
+    setBusy(true);
+    try {
+      const { error } = await supabase.auth.resend({
+        type: "signup",
+        email: form.email.trim(),
+      });
+      if (error) throw error;
+      setMsg({ kind: "ok", text: "A fresh code is on its way." });
+    } catch (err) {
+      setMsg({ kind: "err", text: err.message || "Could not resend." });
     } finally {
       setBusy(false);
     }
@@ -167,6 +221,57 @@ export default function Enlist({ auth, onBack }) {
           <button className="bbs-btn" onClick={signOut}>LOG OUT</button>
           <button className="bbs-btn alt" onClick={onBack}>◄ MENU</button>
         </div>
+      </div>
+    );
+  }
+
+  // Awaiting the email confirmation code after a fresh registration.
+  if (awaitingCode) {
+    return (
+      <div className="board">
+        <h1 className="board-title">CONFIRM</h1>
+        <p className="board-note">
+          A 6-digit code was transmitted to <b>{form.email}</b>. Enter it to
+          activate your account, comrade.
+        </p>
+
+        <form className="bbs-form" onSubmit={verifyCode}>
+          <label>
+            <span>CODE</span>
+            <input
+              value={form.code}
+              onChange={set("code")}
+              inputMode="numeric"
+              autoComplete="one-time-code"
+              maxLength={6}
+              spellCheck="false"
+              placeholder="123456"
+            />
+          </label>
+
+          {msg && <div className={"board-note " + (msg.kind === "err" ? "err" : "ok")}>{msg.text}</div>}
+
+          <div className="board-actions">
+            <button className="bbs-btn" type="submit" disabled={busy}>
+              {busy ? "…VERIFYING" : "VERIFY"}
+            </button>
+            <button className="bbs-btn alt" type="button" disabled={busy} onClick={resendCode}>
+              RESEND CODE
+            </button>
+            <button
+              className="bbs-btn alt"
+              type="button"
+              onClick={() => {
+                setAwaitingCode(false);
+                setMsg(null);
+              }}
+            >
+              ◄ BACK
+            </button>
+          </div>
+        </form>
+
+        <div className="page-foot">— press 0 or ESC to return to the main menu —</div>
       </div>
     );
   }
