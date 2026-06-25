@@ -190,12 +190,25 @@ function linkify(text) {
   });
 }
 
+const BackButton = ({ onBack }) => (
+  <button
+    className="back-btn"
+    onClick={(e) => {
+      e.stopPropagation();
+      onBack();
+    }}
+  >
+    ◄ BACK
+  </button>
+);
+
 function Page({ pageKey, onBack }) {
   const text = PAGES[pageKey] || "404 — the collective is still drafting this.";
   return (
     <div className="page" onClick={onBack}>
+      <BackButton onBack={onBack} />
       <pre className="page-body">{linkify(text)}</pre>
-      <div className="page-foot">— press 0 or ESC to return to the main menu —</div>
+      <div className="page-foot">— press ◄ BACK (or 0 / ESC) to return —</div>
     </div>
   );
 }
@@ -215,8 +228,9 @@ function WhoOnline({ online, me, onBack }) {
     "\n  [trace_daemon] .... [running]  do not page this process";
   return (
     <div className="page" onClick={onBack}>
+      <BackButton onBack={onBack} />
       <pre className="page-body">{linkify(body)}</pre>
-      <div className="page-foot">— press 0 or ESC to return to the main menu —</div>
+      <div className="page-foot">— press ◄ BACK (or 0 / ESC) to return —</div>
     </div>
   );
 }
@@ -225,9 +239,10 @@ function WhoOnline({ online, me, onBack }) {
 function LogOff({ onBack }) {
   return (
     <div className="logoff" onClick={onBack}>
+      <BackButton onBack={onBack} />
       <pre className="logoff-art">{`+++ATH0\nNO CARRIER`}</pre>
       <div className="page-foot">
-        the line is dead. solidarity persists. — press any key to redial —
+        the line is dead. solidarity persists. — press ◄ BACK to redial —
       </div>
     </div>
   );
@@ -240,16 +255,33 @@ export default function App() {
   const auth = useAuth();
   const online = usePresence(auth.session, auth.handle);
 
-  const toMenu = useCallback(() => setView({ type: "menu" }), []);
+  // Navigate forward into a view, recording a browser-history entry so the
+  // browser's Back/Forward buttons (and our ◄ BACK button) traverse views.
+  const navigate = useCallback((next) => {
+    window.history.pushState({ appView: next }, "");
+    setView(next);
+  }, []);
+
+  // One step back = pop a history entry; popstate (below) drives setView. This
+  // keeps the browser's history and our React state in sync in both directions.
+  const back = useCallback(() => window.history.back(), []);
+
+  // Seed a baseline "menu" entry, then mirror browser Back/Forward into state.
+  useEffect(() => {
+    window.history.replaceState({ appView: { type: "menu" } }, "");
+    const onPop = (e) => setView(e.state?.appView || { type: "menu" });
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, []);
 
   const handleSelect = useCallback((item) => {
     play("enter");
-    if (item.action === "game") setView({ type: "game" });
-    else if (item.action === "logoff") setView({ type: "logoff" });
-    else if (item.action === "enlist") setView({ type: "enlist" });
-    else if (item.action === "forum") setView({ type: "forum" });
-    else setView({ type: "page", key: item.page });
-  }, []);
+    if (item.action === "game") navigate({ type: "game" });
+    else if (item.action === "logoff") navigate({ type: "logoff" });
+    else if (item.action === "enlist") navigate({ type: "enlist" });
+    else if (item.action === "forum") navigate({ type: "forum" });
+    else navigate({ type: "page", key: item.page });
+  }, [navigate]);
 
   const toggleMute = useCallback(() => {
     setMutedState((m) => {
@@ -259,31 +291,31 @@ export default function App() {
     });
   }, []);
 
-  // Global keyboard: digits select on the menu; ESC / 0 backs out.
+  // Global keyboard: digits select on the menu; ESC / 0 still back out.
   useEffect(() => {
     function onKey(e) {
       if (e.key === "Escape") {
-        if (view.type !== "menu") toMenu();
+        if (view.type !== "menu") back();
         return;
       }
       if (view.type === "menu" && e.key.length === 1) {
         const item = ALL.find((i) => i.n === e.key.toUpperCase());
         if (item) handleSelect(item);
       } else if ((view.type === "page" || view.type === "logoff") && e.key === "0") {
-        toMenu();
+        back();
       }
     }
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [view, handleSelect, toMenu]);
+  }, [view, handleSelect, back]);
 
   if (view.type === "game")
-    return <Mush key="game" auth={auth} onExit={toMenu} muted={muted} onToggleMute={toggleMute} />;
-  if (view.type === "enlist") return <Enlist auth={auth} onBack={toMenu} />;
-  if (view.type === "forum") return <Forum auth={auth} onBack={toMenu} />;
+    return <Mush key="game" auth={auth} onExit={back} muted={muted} onToggleMute={toggleMute} />;
+  if (view.type === "enlist") return <Enlist auth={auth} onBack={back} />;
+  if (view.type === "forum") return <Forum auth={auth} onBack={back} />;
   if (view.type === "page" && view.key === "who")
-    return <WhoOnline online={online} me={auth.handle} onBack={toMenu} />;
-  if (view.type === "page") return <Page pageKey={view.key} onBack={toMenu} />;
-  if (view.type === "logoff") return <LogOff onBack={toMenu} />;
+    return <WhoOnline online={online} me={auth.handle} onBack={back} />;
+  if (view.type === "page") return <Page pageKey={view.key} onBack={back} />;
+  if (view.type === "logoff") return <LogOff onBack={back} />;
   return <Menu onSelect={handleSelect} handle={auth.handle} />;
 }
