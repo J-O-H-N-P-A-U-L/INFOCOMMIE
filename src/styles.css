@@ -330,6 +330,13 @@ svg {
   color: var(--win);
   text-shadow: 0 0 6px rgba(122, 209, 122, 0.5);
 }
+/* MUSH: other comrades' speech/poses stand out; arrivals/exits are quieter. */
+.line.peer {
+  color: var(--cyan);
+}
+.line.arrive {
+  color: var(--dim);
+}
 
 .prompt-row {
   display: flex;

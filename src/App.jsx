@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { INTRO, BRAND, PAGES, newGame, respond } from "./game.js";
+import { PAGES } from "./game.js";
 import { play, setMuted } from "./sound.js";
 import { useAuth } from "./useAuth.js";
 import { usePresence } from "./presence.js";
 import Enlist from "./Enlist.jsx";
 import Forum from "./Forum.jsx";
+import Mush from "./Mush.jsx";
 
 /* ── Pixel icons (crisp-edged inline SVG) ───────────────────────────── */
 function Icon({ name }) {
@@ -232,151 +233,6 @@ function LogOff({ onBack }) {
   );
 }
 
-const Cursor = () => <span className="cursor" aria-hidden="true" />;
-
-function useTypewriter(full, speed, active, onDone) {
-  const [shown, setShown] = useState("");
-  const doneRef = useRef(onDone);
-  doneRef.current = onDone;
-  useEffect(() => {
-    if (!active) return;
-    setShown("");
-    let i = 0;
-    const id = setInterval(() => {
-      i += 1;
-      setShown(full.slice(0, i));
-      if (i >= full.length) {
-        clearInterval(id);
-        doneRef.current && doneRef.current();
-      }
-    }, speed);
-    return () => clearInterval(id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [full, active]);
-  return shown;
-}
-
-/* ── The SPY GAME terminal (the game) ────────────────────────────── */
-function Terminal({ onExit, muted, onToggleMute }) {
-  const [history, setHistory] = useState([]);
-  const [input, setInput] = useState("");
-  const [introIndex, setIntroIndex] = useState(0);
-  const [ready, setReady] = useState(false);
-  const [game, setGame] = useState(newGame);
-  const inputRef = useRef(null);
-
-  const currentIntro = INTRO[introIndex] || "";
-  const typed = useTypewriter(currentIntro, 42, introIndex < INTRO.length, () => {
-    setHistory((h) => [...h, { kind: "sys", text: currentIntro }]);
-    setIntroIndex((n) => n + 1);
-  });
-
-  useEffect(() => {
-    if (introIndex >= INTRO.length) setReady(true);
-  }, [introIndex]);
-  useEffect(() => {
-    window.scrollTo(0, document.body.scrollHeight);
-  }, [history, typed]);
-
-  const focusInput = useCallback(() => {
-    if (inputRef.current) inputRef.current.focus();
-  }, []);
-  useEffect(() => {
-    if (ready) focusInput();
-  }, [ready, focusInput]);
-
-  const submit = useCallback(() => {
-    const value = input;
-    setInput("");
-    const { reply, state, sound } = respond(value, game);
-    setGame(state);
-    play(sound);
-    setHistory((h) => [
-      ...h,
-      { kind: "echo", text: "> " + value },
-      { kind: "sys", text: reply, tone: sound },
-    ]);
-  }, [input, game]);
-
-  const onKeyDown = (e) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      submit();
-    } else if (e.key === "Escape") {
-      onExit();
-    } else if (e.key.length === 1) {
-      play("type");
-    }
-  };
-
-  const dead = !game.alive;
-  const won = game.won;
-
-  return (
-    <div className="crt" onClick={focusInput}>
-      <div className="term-head">
-        {BRAND.wordmark} BBS · SPY GAME · NODE 1
-      </div>
-
-      <div className="screen">
-        {history.map((line, i) => (
-          <div
-            key={i}
-            className={
-              "line " +
-              (line.kind === "echo" ? "echo" : "sys") +
-              (line.tone === "death" ? " death" : "") +
-              (line.tone === "win" ? " win" : "")
-            }
-          >
-            {line.text}
-          </div>
-        ))}
-
-        {introIndex < INTRO.length && (
-          <div className="line sys">
-            {typed}
-            <Cursor />
-          </div>
-        )}
-
-        {ready && (
-          <div className={"prompt-row" + (dead ? " dead" : won ? " won" : "")}>
-            <span className="caret">&gt;</span>
-            <span className="input-text">{input}</span>
-            <Cursor />
-            <input
-              ref={inputRef}
-              className="hidden-input"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={onKeyDown}
-              autoFocus
-              autoCapitalize="off"
-              autoComplete="off"
-              autoCorrect="off"
-              spellCheck="false"
-              aria-label="Enter a command"
-            />
-          </div>
-        )}
-      </div>
-
-      <footer className="bbs-status" onClick={(e) => e.stopPropagation()}>
-        <button className="seg inv menu-btn" onClick={onExit}>
-          ◄ MENU
-        </button>
-        <span className="seg">2400 BAUD</span>
-        <span className="seg">{dead ? "OFFLINE" : won ? "MISSION COMPLETE" : "● ONLINE"}</span>
-        <span className="seg sysop">SYSOP: cybermania94@hotmail.com</span>
-        <button className="seg mute" onClick={onToggleMute} aria-label="Toggle sound">
-          {muted ? "SND:OFF" : "SND:ON"}
-        </button>
-      </footer>
-    </div>
-  );
-}
-
 /* ── App shell: routes between menu / page / game / logoff ──────────── */
 export default function App() {
   const [view, setView] = useState({ type: "menu" });
@@ -422,7 +278,7 @@ export default function App() {
   }, [view, handleSelect, toMenu]);
 
   if (view.type === "game")
-    return <Terminal key="game" onExit={toMenu} muted={muted} onToggleMute={toggleMute} />;
+    return <Mush key="game" auth={auth} onExit={toMenu} muted={muted} onToggleMute={toggleMute} />;
   if (view.type === "enlist") return <Enlist auth={auth} onBack={toMenu} />;
   if (view.type === "forum") return <Forum auth={auth} onBack={toMenu} />;
   if (view.type === "page" && view.key === "who")
