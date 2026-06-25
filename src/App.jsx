@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { INTRO, BRAND, PAGES, newGame, respond } from "./game.js";
 import { play, setMuted } from "./sound.js";
 import { useAuth } from "./useAuth.js";
+import { usePresence } from "./presence.js";
 import Enlist from "./Enlist.jsx";
 import Forum from "./Forum.jsx";
 
@@ -198,6 +199,27 @@ function Page({ pageKey, onBack }) {
   );
 }
 
+/* ── WHO'S ONLINE: live roster of logged-in comrades (Supabase Presence) ─ */
+function WhoOnline({ online, me, onBack }) {
+  const rows = online.map((u) => {
+    const dots = ".".repeat(Math.max(3, 18 - u.handle.length));
+    const tag = me && u.handle === me ? "you, comrade (here, now)" : "ACTIVE";
+    return `  ${u.handle} ${dots} ${tag}`;
+  });
+  const body =
+    `USERS ONLINE  —  ${online.length} on NODE 1\n` +
+    (rows.length
+      ? rows.join("\n")
+      : "  (the line is quiet — no comrades logged in right now)") +
+    "\n  [trace_daemon] .... [running]  do not page this process";
+  return (
+    <div className="page" onClick={onBack}>
+      <pre className="page-body">{linkify(body)}</pre>
+      <div className="page-foot">— press 0 or ESC to return to the main menu —</div>
+    </div>
+  );
+}
+
 /* ── The NO CARRIER log-off screen ──────────────────────────────────── */
 function LogOff({ onBack }) {
   return (
@@ -360,6 +382,7 @@ export default function App() {
   const [view, setView] = useState({ type: "menu" });
   const [muted, setMutedState] = useState(false);
   const auth = useAuth();
+  const online = usePresence(auth.session, auth.handle);
 
   const toMenu = useCallback(() => setView({ type: "menu" }), []);
 
@@ -402,6 +425,8 @@ export default function App() {
     return <Terminal key="game" onExit={toMenu} muted={muted} onToggleMute={toggleMute} />;
   if (view.type === "enlist") return <Enlist auth={auth} onBack={toMenu} />;
   if (view.type === "forum") return <Forum auth={auth} onBack={toMenu} />;
+  if (view.type === "page" && view.key === "who")
+    return <WhoOnline online={online} me={auth.handle} onBack={toMenu} />;
   if (view.type === "page") return <Page pageKey={view.key} onBack={toMenu} />;
   if (view.type === "logoff") return <LogOff onBack={toMenu} />;
   return <Menu onSelect={handleSelect} handle={auth.handle} />;
