@@ -88,6 +88,37 @@ const MISC = [
 ];
 const ALL = [...TOP, ...BOARD, ...MISC];
 
+/* ── Shareable deep links ───────────────────────────────────────────────
+   Each view maps to a URL hash (e.g. infocommie.com/#showcase) so links can
+   be shared and load straight into that view. Hash routing keeps GitHub Pages
+   happy (no server rewrites) and stays clear of Supabase's auth-token hash. */
+const VIEW_SLUGS = {
+  spygame: { type: "game" },
+  enlist: { type: "enlist" },
+  forum: { type: "forum" },
+  showcase: { type: "page", key: "showcase" },
+  who: { type: "page", key: "who" },
+  news: { type: "page", key: "motd" },
+  manifesto: { type: "page", key: "manifesto" },
+  catalog: { type: "page", key: "catalog" },
+  freenet: { type: "page", key: "freenet" },
+  about: { type: "page", key: "about" },
+  credits: { type: "page", key: "credits" },
+};
+
+function hashToView(hash) {
+  const slug = (hash || "").replace(/^#\/?/, "").toLowerCase();
+  return VIEW_SLUGS[slug] || { type: "menu" };
+}
+
+function viewToHash(view) {
+  if (!view || view.type === "menu") return "";
+  for (const [slug, v] of Object.entries(VIEW_SLUGS)) {
+    if (v.type === view.type && v.key === view.key) return slug;
+  }
+  return "";
+}
+
 /* ── Main BBS menu screen (RetroCampus-style) ───────────────────────── */
 function Menu({ onSelect, handle }) {
   return (
@@ -259,15 +290,19 @@ function LogOff({ onBack }) {
 
 /* ── App shell: routes between menu / page / game / logoff ──────────── */
 export default function App() {
-  const [view, setView] = useState({ type: "menu" });
+  // Initial view comes from the URL hash, so a shared link loads straight in.
+  const [view, setView] = useState(() => hashToView(window.location.hash));
   const [muted, setMutedState] = useState(false);
   const auth = useAuth();
   const online = usePresence(auth.session, auth.handle);
 
-  // Navigate forward into a view, recording a browser-history entry so the
-  // browser's Back/Forward buttons (and our ◄ BACK button) traverse views.
+  // Navigate forward into a view, recording a browser-history entry (with the
+  // view's hash in the URL) so Back/Forward and our ◄ BACK button traverse
+  // views and the address bar always reflects a shareable link.
   const navigate = useCallback((next) => {
-    window.history.pushState({ appView: next }, "");
+    const slug = viewToHash(next);
+    const url = slug ? `#${slug}` : window.location.pathname + window.location.search;
+    window.history.pushState({ appView: next }, "", url);
     setView(next);
   }, []);
 
@@ -275,12 +310,25 @@ export default function App() {
   // keeps the browser's history and our React state in sync in both directions.
   const back = useCallback(() => window.history.back(), []);
 
-  // Seed a baseline "menu" entry, then mirror browser Back/Forward into state.
+  // Seed history so Back always reaches the menu — even when landing directly
+  // on a deep link — then mirror browser Back/Forward (and manual hash edits)
+  // into state.
   useEffect(() => {
-    window.history.replaceState({ appView: { type: "menu" } }, "");
-    const onPop = (e) => setView(e.state?.appView || { type: "menu" });
+    const initial = hashToView(window.location.hash);
+    const bare = window.location.pathname + window.location.search;
+    window.history.replaceState({ appView: { type: "menu" } }, "", bare);
+    if (initial.type !== "menu") {
+      window.history.pushState({ appView: initial }, "", `#${viewToHash(initial)}`);
+    }
+    const onPop = (e) =>
+      setView(e.state?.appView || hashToView(window.location.hash));
+    const onHash = () => setView(hashToView(window.location.hash));
     window.addEventListener("popstate", onPop);
-    return () => window.removeEventListener("popstate", onPop);
+    window.addEventListener("hashchange", onHash);
+    return () => {
+      window.removeEventListener("popstate", onPop);
+      window.removeEventListener("hashchange", onHash);
+    };
   }, []);
 
   const handleSelect = useCallback((item) => {
