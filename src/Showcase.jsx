@@ -1,0 +1,63 @@
+import { PLAYLIST, VIDEOS, videoUrl, thumb } from "./showcase.js";
+
+/* ── WATCH — the showcase: playthroughs on real MT-32, straight from the
+   INFOCOMMIE YouTube playlist. Thumbnails + blurbs link out to each video. */
+export default function Showcase({ onBack }) {
+  return (
+    <div className="showcase">
+      <button
+        className="back-btn"
+        onClick={(e) => {
+          e.stopPropagation();
+          onBack();
+        }}
+      >
+        ◄ BACK
+      </button>
+
+      <header className="showcase-head">
+        <div className="showcase-kicker">THE SHOWCASE · ON REAL ROLAND MT-32</div>
+        <h1 className="showcase-title">{PLAYLIST.title}</h1>
+        <p className="showcase-sub">
+          Full playthroughs of the golden-age classics, scored on genuine MT-32
+          hardware. We bring the playthrough; the makers get the credit.
+        </p>
+        <a
+          className="playlist-cta"
+          href={PLAYLIST.url}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          ▶ WATCH THE FULL PLAYLIST
+        </a>
+      </header>
+
+      <div className="video-grid">
+        {VIDEOS.map((v) => (
+          <a
+            key={v.id}
+            className="vcard"
+            href={videoUrl(v.id)}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <div className="vthumb">
+              <img src={thumb(v.id)} alt={v.title} loading="lazy" />
+              <span className="vplay" aria-hidden="true" />
+              <span className="vdur">{v.dur}</span>
+            </div>
+            <div className="vbody">
+              <h2 className="vtitle">{v.title}</h2>
+              <p className="vblurb">{v.blurb}</p>
+              <span className="vwatch">WATCH ▸</span>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <div className="page-foot">
+        — press ◄ BACK (or ESC) to return · all games belong to their makers —
+      </div>
+    </div>
+  );
+}

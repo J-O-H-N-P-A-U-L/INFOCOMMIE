@@ -6,6 +6,7 @@ import { usePresence } from "./presence.js";
 import Enlist from "./Enlist.jsx";
 import Forum from "./Forum.jsx";
 import Mush from "./Mush.jsx";
+import Showcase from "./Showcase.jsx";
 
 /* ── Pixel icons (crisp-edged inline SVG) ───────────────────────────── */
 function Icon({ name }) {
@@ -54,6 +55,13 @@ function Icon({ name }) {
           <rect x="6" y="10" width="3" height="1" fill="#000" opacity=".45" />
         </svg>
       );
+    case "play":
+      return (
+        <svg {...p}>
+          <rect x="1" y="3" width="14" height="10" rx="2" fill="#e23b2e" />
+          <path d="M7 6l4 2-4 2z" fill="#fff" />
+        </svg>
+      );
     default:
       return null;
   }
@@ -64,6 +72,7 @@ const TOP = [
   { n: "1", cap: "News", title: "Dispatches", icon: "star", page: "motd" },
   { n: "2", cap: "Read", title: "Manifesto", icon: "flag", page: "manifesto" },
   { n: "3", cap: "Games", title: "Spy Game", icon: "spy", action: "game" },
+  { n: "W", cap: "Watch", title: "Showcase", icon: "play", page: "showcase" },
   { n: "4", cap: "Files", title: "Catalog", icon: "arrow", page: "catalog" },
 ];
 const BOARD = [
@@ -315,6 +324,7 @@ export default function App() {
   if (view.type === "forum") return <Forum auth={auth} onBack={back} />;
   if (view.type === "page" && view.key === "who")
     return <WhoOnline online={online} me={auth.handle} onBack={back} />;
+  if (view.type === "page" && view.key === "showcase") return <Showcase onBack={back} />;
   if (view.type === "page") return <Page pageKey={view.key} onBack={back} />;
   if (view.type === "logoff") return <LogOff onBack={back} />;
   return <Menu onSelect={handleSelect} handle={auth.handle} />;
