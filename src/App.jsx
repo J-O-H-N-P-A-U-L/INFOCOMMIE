@@ -72,8 +72,7 @@ const TOP = [
   { n: "1", cap: "News", title: "Dispatches", icon: "star", page: "motd" },
   { n: "2", cap: "Read", title: "Manifesto", icon: "flag", page: "manifesto" },
   { n: "3", cap: "Games", title: "Spy Game", icon: "spy", action: "game" },
-  { n: "W", cap: "Watch", title: "Showcase", icon: "play", page: "showcase" },
-  { n: "4", cap: "Files", title: "Catalog", icon: "arrow", page: "catalog" },
+  { n: "4", cap: "Watch", title: "Showcase", icon: "play", page: "showcase" },
 ];
 const BOARD = [
   { n: "5", title: "Enlist", action: "enlist" },
