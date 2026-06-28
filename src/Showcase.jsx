@@ -1,4 +1,14 @@
-import { PLAYLIST, VIDEOS, videoUrl, thumb } from "./showcase.js";
+import {
+  PLAYLIST,
+  VIDEOS,
+  videoUrl,
+  thumb,
+  ownLinks,
+  OWN_THE_ORIGINAL,
+} from "./showcase.js";
+import { CHANNELS, tipUrl, storeUrl } from "./support.js";
+
+const ext = { target: "_blank", rel: "noopener noreferrer" };
 
 /* ── WATCH — the showcase: playthroughs on real MT-32, straight from the
    INFOCOMMIE YouTube playlist. Thumbnails + blurbs link out to each video. */
@@ -22,14 +32,17 @@ export default function Showcase({ onBack }) {
           Full playthroughs of the golden-age classics, scored on genuine MT-32
           hardware. We bring the playthrough; the makers get the credit.
         </p>
-        <a
-          className="playlist-cta"
-          href={PLAYLIST.url}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          ▶ WATCH THE FULL PLAYLIST
-        </a>
+        <div className="showcase-actions">
+          <a className="cta cta-red" href={PLAYLIST.url} {...ext}>
+            ▶ WATCH THE FULL PLAYLIST
+          </a>
+          <a className="cta cta-line" href={CHANNELS.youtubeSub} {...ext}>
+            ★ SUBSCRIBE ON YOUTUBE
+          </a>
+          <a className="cta cta-line" href={CHANNELS.twitch} {...ext}>
+            ◉ FOLLOW ON TWITCH
+          </a>
+        </div>
       </header>
 
       <div className="video-grid">
@@ -54,6 +67,40 @@ export default function Showcase({ onBack }) {
           </a>
         ))}
       </div>
+
+      {ownLinks().length > 0 && (
+        <section className="own-original">
+          <div className="own-kicker">OWN THE ORIGINAL</div>
+          <p className="own-sub">
+            We only bring the playthrough — {OWN_THE_ORIGINAL.title} belongs to
+            its makers.
+            Do the right thing and grab a legit copy from the source:
+          </p>
+          <div className="own-links">
+            {ownLinks().map((l) => (
+              <a key={l.store} className="cta cta-line" href={l.url} {...ext}>
+                {l.store} ▸
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {(tipUrl() || storeUrl()) && (
+        <section className="support-bar">
+          <span className="support-label">KEEP THE LAMPS LIT —</span>
+          {tipUrl() && (
+            <a className="cta cta-green" href={tipUrl()} {...ext}>
+              ♥ TIP THE COLLECTIVE
+            </a>
+          )}
+          {storeUrl() && (
+            <a className="cta cta-line" href={storeUrl()} {...ext}>
+              ▮ AGITPROP STORE
+            </a>
+          )}
+        </section>
+      )}
 
       <div className="page-foot">
         — press ◄ BACK (or ESC) to return · all games belong to their makers —

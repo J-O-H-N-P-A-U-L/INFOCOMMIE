@@ -29,6 +29,21 @@ export const VIDEOS = [
   },
 ];
 
+// OWN THE ORIGINAL — affiliate "buy it from the makers" links. This is the
+// firewall-safe earner: it sends viewers to the rights holder (and pays us a
+// small cut), reinforcing "every game belongs to its makers". Paste your own
+// affiliate-tracked URLs (any network — GOG, Amazon Associates, etc.). Any link
+// left "" is hidden; the whole block disappears if none are filled.
+export const OWN_THE_ORIGINAL = {
+  title: "Return to Zork",
+  links: [
+    { store: "GOG", url: "" }, // paste your GOG affiliate link
+    { store: "Amazon", url: "" }, // paste your Amazon Associates link
+  ],
+};
+
+export const ownLinks = () => OWN_THE_ORIGINAL.links.filter((l) => l.url);
+
 export const videoUrl = (id) =>
   `https://www.youtube.com/watch?v=${id}&list=${PLAYLIST.id}`;
 

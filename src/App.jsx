@@ -7,6 +7,7 @@ import Enlist from "./Enlist.jsx";
 import Forum from "./Forum.jsx";
 import Mush from "./Mush.jsx";
 import Showcase from "./Showcase.jsx";
+import { tipUrl, storeUrl } from "./support.js";
 
 /* ── Pixel icons (crisp-edged inline SVG) ───────────────────────────── */
 function Icon({ name }) {
@@ -193,6 +194,16 @@ function Menu({ onSelect, handle }) {
 
       <div className="credit">
         by THE INFOCOMMIE COLLECTIVE · 2026
+        {tipUrl() && (
+          <a className="exit" href={tipUrl()} target="_blank" rel="noopener noreferrer">
+            ♥ Support
+          </a>
+        )}
+        {storeUrl() && (
+          <a className="exit" href={storeUrl()} target="_blank" rel="noopener noreferrer">
+            ▮ Store
+          </a>
+        )}
         <button className="exit" onClick={() => onSelect(MISC[2])}>
           ▮ Log Off
         </button>

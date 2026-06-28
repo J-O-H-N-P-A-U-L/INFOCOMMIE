@@ -772,19 +772,95 @@ svg {
   max-width: 60ch;
   margin: 0 auto 1.6em;
 }
-.playlist-cta {
+/* CTA button system — shared by Watch / Subscribe / Own / Support */
+.showcase-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8em;
+  justify-content: center;
+}
+.cta {
   display: inline-block;
   font-family: var(--pixel);
   font-size: clamp(9px, 1.3vw, 14px);
   letter-spacing: 0.04em;
-  color: #000;
-  background: var(--red);
   padding: 0.9em 1.4em;
   text-decoration: none;
+  cursor: pointer;
 }
-.playlist-cta:hover,
-.playlist-cta:focus {
+.cta-red {
+  color: #000;
+  background: var(--red);
+}
+.cta-red:hover,
+.cta-red:focus {
   background: #fff;
+}
+.cta-green {
+  color: #000;
+  background: var(--green);
+}
+.cta-green:hover,
+.cta-green:focus {
+  background: #fff;
+}
+.cta-line {
+  color: var(--cyan);
+  background: transparent;
+  border: 1px solid #2a5a5a;
+}
+.cta-line:hover,
+.cta-line:focus {
+  color: #fff;
+  border-color: var(--cyan);
+  background: #36c5c51f;
+}
+
+/* OWN THE ORIGINAL — firewall-safe affiliate block */
+.own-original {
+  max-width: 1100px;
+  margin: 5vh auto 0;
+  padding: 2em 1.4em;
+  border: 1px solid #2a5a5a;
+  background: #ffffff05;
+  text-align: center;
+}
+.own-kicker {
+  font-family: var(--pixel);
+  font-size: clamp(9px, 1.2vw, 14px);
+  letter-spacing: 0.12em;
+  color: var(--yellow);
+  margin-bottom: 0.9em;
+}
+.own-sub {
+  font-family: var(--font);
+  font-size: clamp(16px, 2vw, 22px);
+  color: var(--dim);
+  max-width: 60ch;
+  margin: 0 auto 1.4em;
+}
+.own-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8em;
+  justify-content: center;
+}
+
+/* Support strip — tip jar + merch (funds the originals, never a restoration) */
+.support-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9em;
+  max-width: 1100px;
+  margin: 4vh auto 0;
+}
+.support-label {
+  font-family: var(--pixel);
+  font-size: clamp(9px, 1.2vw, 14px);
+  letter-spacing: 0.06em;
+  color: var(--magenta);
 }
 
 .video-grid {
