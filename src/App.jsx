@@ -7,6 +7,7 @@ import Enlist from "./Enlist.jsx";
 import Forum from "./Forum.jsx";
 import Mush from "./Mush.jsx";
 import Showcase from "./Showcase.jsx";
+import StatusBar from "./StatusBar.jsx";
 import { tipUrl, storeUrl } from "./support.js";
 
 /* ── Pixel icons (crisp-edged inline SVG) ───────────────────────────── */
@@ -240,25 +241,12 @@ function linkify(text) {
   });
 }
 
-const BackButton = ({ onBack }) => (
-  <button
-    className="back-btn"
-    onClick={(e) => {
-      e.stopPropagation();
-      onBack();
-    }}
-  >
-    ◄ BACK
-  </button>
-);
-
 function Page({ pageKey, onBack }) {
   const text = PAGES[pageKey] || "404 — the collective is still drafting this.";
   return (
     <div className="page" onClick={onBack}>
-      <BackButton onBack={onBack} />
       <pre className="page-body">{linkify(text)}</pre>
-      <div className="page-foot">— press ◄ BACK (or 0 / ESC) to return —</div>
+      <StatusBar onMenu={onBack} hint="◄ MENU · or 0 / ESC to return" />
     </div>
   );
 }
@@ -278,9 +266,8 @@ function WhoOnline({ online, me, onBack }) {
     "\n  [trace_daemon] .... [running]  do not page this process";
   return (
     <div className="page" onClick={onBack}>
-      <BackButton onBack={onBack} />
       <pre className="page-body">{linkify(body)}</pre>
-      <div className="page-foot">— press ◄ BACK (or 0 / ESC) to return —</div>
+      <StatusBar onMenu={onBack} hint="◄ MENU · or 0 / ESC to return" />
     </div>
   );
 }
@@ -289,11 +276,11 @@ function WhoOnline({ online, me, onBack }) {
 function LogOff({ onBack }) {
   return (
     <div className="logoff" onClick={onBack}>
-      <BackButton onBack={onBack} />
       <pre className="logoff-art">{`+++ATH0\nNO CARRIER`}</pre>
       <div className="page-foot">
-        the line is dead. solidarity persists. — press ◄ BACK to redial —
+        the line is dead. solidarity persists.
       </div>
+      <StatusBar onMenu={onBack} hint="◄ MENU to redial" />
     </div>
   );
 }

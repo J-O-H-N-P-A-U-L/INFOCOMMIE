@@ -7,6 +7,7 @@ import {
   OWN_THE_ORIGINAL,
 } from "./showcase.js";
 import { CHANNELS, tipUrl, storeUrl } from "./support.js";
+import StatusBar from "./StatusBar.jsx";
 
 const ext = { target: "_blank", rel: "noopener noreferrer" };
 
@@ -15,16 +16,6 @@ const ext = { target: "_blank", rel: "noopener noreferrer" };
 export default function Showcase({ onBack }) {
   return (
     <div className="showcase">
-      <button
-        className="back-btn"
-        onClick={(e) => {
-          e.stopPropagation();
-          onBack();
-        }}
-      >
-        ◄ BACK
-      </button>
-
       <header className="showcase-head">
         <div className="showcase-kicker">THE SHOWCASE · ON REAL ROLAND MT-32</div>
         <h1 className="showcase-title">{PLAYLIST.title}</h1>
@@ -102,9 +93,9 @@ export default function Showcase({ onBack }) {
         </section>
       )}
 
-      <div className="page-foot">
-        — press ◄ BACK (or ESC) to return · all games belong to their makers —
-      </div>
+      <div className="page-foot">— all games belong to their makers —</div>
+
+      <StatusBar onMenu={onBack} hint="◄ MENU · or ESC to return" />
     </div>
   );
 }
